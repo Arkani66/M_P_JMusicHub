@@ -1,0 +1,10 @@
+package main;
+import business.*
+
+javac <chemin des fichiers à compiler> *.java scr <chemin> -d bin
+
+scritp de compialtion
+
+... .bat
+java -classpath bin main.
+voir sur le moodle : comment écrire les scripts
