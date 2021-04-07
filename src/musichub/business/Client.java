@@ -1,40 +1,71 @@
 package musichub.business;
 
+import musichub.util.SocketServer;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class Client {
-    String ip = "localhost";
-    int port = 6666;
-        try(
-        Socket socket = new Socket(ip,port) ) {//ouvre le socket
+public class Client implements SocketServer {
+    private static String ip = "localhost";
+    private static int port = 6666;
+    private Socket socket;
+    private OutputStream output;
+    private InputStream input;
 
-        OutputStream output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
-        PrintWriter writer = new PrintWriter(output, true);//on écrit vers le flux de sortie, en accord avec le protocole du server
-        writer.println("Enter text: ");
-        writer.flush();
-        InputStream input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
-
-        Scanner scanner = new Scanner(System.in);
-        String question = "null";
-        while( question.compareTo("quitter") != 0)
-        {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            String line = reader.readLine();//lit le flux d'entrée, en accord avec le protocole du serveur!
-            System.out.println(line);
-            writer.println("Client ask: " + question);
+    public Client(){
+        try{//ouvre le socket
+            this.socket = new Socket(this.ip,this.port);
+            this.output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
+            PrintWriter writer = new PrintWriter(this.output, true);//on écrit vers le flux de sortie, en accord avec le protocole du server
+            writer.println("\tClient connected !");
             writer.flush();
-            question = scanner.nextLine();
+        }catch( UnknownHostException uhe){
+            System.out.println(uhe.getMessage());
+        } catch (IOException ioe) {
+            System.out.println(ioe.getMessage());
         }
-
-        input.close();//clôt le InputStream
-        output.close();//clôt le OutputStream
-        socket.close();//clôt le socket
-
-    }catch( UnknownHostException uhe){
-        System.out.println(uhe.getMessage());
-    } catch (IOException ioe) {
-        System.out.println(ioe.getMessage());
     }
+
+    public void writeTo(String s) {
+        PrintWriter writer = new PrintWriter(output, true);//on écrit vers le flux de sortie, en accord avec le protocole du server
+    }
+
+    public String readFrom(){
+        String response = null;
+        try{
+            this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+             response = reader.readLine();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    public void closeOutput(){
+        try {
+            this.output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void closeInput(){
+        try {
+            this.input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void closeSocket() {
+        try {
+            this.socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

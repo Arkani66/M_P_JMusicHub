@@ -36,7 +36,7 @@ import java.util.Scanner;
 
     public MusicHubConsole()
     {
-
+        Client client = new Client();
         System.out.println(ANSI_WHITE_BACKGROUND+ANSI_BLUE+"\n\n\t\tBienvenue sur le jMusicHub\n"+ANSI_RESET);
         MusicHub hub = new MusicHub();
         try

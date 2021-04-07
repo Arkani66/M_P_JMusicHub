@@ -1,45 +1,73 @@
 package musichub.business;
 
+import musichub.util.SocketServer;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class Server {
+public class Server implements SocketServer {
     private static String ip = "localhost";
+    private static int port = 6666;
+    private ServerSocket ss;
+    private Socket socket;
+    private OutputStream output;
+    private InputStream input;
 
-    public Server(){
-
-    }
-
+    public void Server()
+    {
         try {
-        ServerSocket ss = new ServerSocket(6666);
-        System.out.println("Server waiting for connection...");
-        Socket socket = ss.accept();//établit la connexion
-        System.out.println("Connected as " + ip);
-        InputStream input = socket.getInputStream();
-
-        OutputStream output = socket.getOutputStream();
-        PrintWriter writer = new PrintWriter(output, true);
-
-        Scanner scanner = new Scanner(System.in);
-        String text = "null";
-        String serverresponse;
-        while( text.compareTo("quitter") != 0 )
-        {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            text = reader.readLine();
-            System.out.println(text);
-            //String reverseText =  new StringBuilder(text).reverse().toString();
-            writer.println("Server response: " + text);
-            writer.flush();
-            serverresponse = scanner.nextLine();
-
+            this.ss = new ServerSocket(port);
+            System.out.println("Server waiting for connection...");
+            this.socket = ss.accept();//établit la connexion
+            System.out.println("Connected as " + ip);
+        }catch (IOException ioe) {
+            System.out.println(ioe.getMessage());
         }
-        output.close();
-        input.close();
-        socket.close();
-    }catch (IOException ioe) {
-        System.out.println(ioe.getMessage());
     }
 
+    @Override
+    public void writeTo(String s) {
+        //on écrit vers le flux de sortie, en accord avec le protocole du server
+        PrintWriter writer = new PrintWriter(output, true);
+    }
+    @Override
+    public String readFrom() {
+        String response = null;
+        try{
+            this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            response = reader.readLine();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @Override
+    public void closeOutput() {
+        try {
+            this.output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void closeInput() {
+        try {
+            this.input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void closeSocket() {
+        try {
+            this.socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
