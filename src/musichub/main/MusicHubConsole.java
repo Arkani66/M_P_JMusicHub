@@ -2,6 +2,9 @@ package musichub.main;
 
 import musichub.business.*;
 import musichub.util.*;
+
+import java.io.*;
+import java.net.*;
 import java.util.Scanner;
 
 /**
@@ -37,6 +40,7 @@ import java.util.Scanner;
     public MusicHubConsole()
     {
         Client client = new Client();
+
         System.out.println(ANSI_WHITE_BACKGROUND+ANSI_BLUE+"\n\n\t\tBienvenue sur le jMusicHub\n"+ANSI_RESET);
         MusicHub hub = new MusicHub();
         try
@@ -94,6 +98,7 @@ import java.util.Scanner;
             switch(reponse)
             {
                 case "c":
+                    client.writeTo("Vous avez choisi => Rajout d'une nouvelle chanson ");
                     System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'une nouvelle chanson "+ANSI_RESET);
                     hub.ajoutChansons();
                     System.out.println(ANSI_CYAN+"\n\tChansons actuellement dans le Hub"/*+ANSI_RESET*/);
@@ -101,6 +106,7 @@ import java.util.Scanner;
                     break;
                     
                 case "a":
+                    client.writeTo("Vous avez choisi => Rajout d'un nouvel album ");
                     System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'un nouvel album "+ANSI_RESET);
                     hub.ajoutAlbum();
                     System.out.println(ANSI_CYAN+"\n\tAlbums actuellement dans le Hub");

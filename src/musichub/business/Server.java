@@ -14,13 +14,18 @@ public class Server implements SocketServer {
     private OutputStream output;
     private InputStream input;
 
-    public void Server()
+    public Server()
     {
-        try {
-            this.ss = new ServerSocket(port);
+        System.out.println("Server ");
+        try{
+            this.ss = new ServerSocket(6666);
             System.out.println("Server waiting for connection...");
             this.socket = ss.accept();//établit la connexion
             System.out.println("Connected as " + ip);
+            this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
+            this.output = socket.getOutputStream();
+        }catch( UnknownHostException uhe){
+            System.out.println(uhe.getMessage());
         }catch (IOException ioe) {
             System.out.println(ioe.getMessage());
         }
@@ -35,7 +40,6 @@ public class Server implements SocketServer {
     public String readFrom() {
         String response = null;
         try{
-            this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             response = reader.readLine();
         }catch(IOException e){

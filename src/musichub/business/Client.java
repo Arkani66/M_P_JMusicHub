@@ -16,6 +16,7 @@ public class Client implements SocketServer {
     public Client(){
         try{//ouvre le socket
             this.socket = new Socket(this.ip,this.port);
+            this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
             this.output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
             PrintWriter writer = new PrintWriter(this.output, true);//on écrit vers le flux de sortie, en accord avec le protocole du server
             writer.println("\tClient connected !");
@@ -28,13 +29,22 @@ public class Client implements SocketServer {
     }
 
     public void writeTo(String s) {
-        PrintWriter writer = new PrintWriter(output, true);//on écrit vers le flux de sortie, en accord avec le protocole du server
+        try {
+            this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
+            this.output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
+            //on écrit vers le flux de sortie, en accord avec le protocole du server
+            PrintWriter writer = new PrintWriter(output, true);
+            writer.println(s);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String readFrom(){
         String response = null;
         try{
-            this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
              response = reader.readLine();
         }catch(IOException e){

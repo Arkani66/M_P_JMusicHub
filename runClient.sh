@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #set JAVA_HOME=
-gnome-terminal
+#gnome-terminal
 
 java -classpath bin musichub.main.MusicHubConsole
 
