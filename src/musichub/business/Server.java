@@ -1,23 +1,36 @@
 package musichub.business;
 
-import musichub.util.SocketServer;
+import musichub.util.socketServer;
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 
-public class Server implements SocketServer {
+public class Server implements socketServer {
     private static String ip = "localhost";
     private static int port = 6666;
     private ServerSocket ss;
     private Socket socket;
     private OutputStream output;
+    private PrintStream sortie;
     private InputStream input;
+    private BufferedReader entree;
 
-    public Server()
+    public Server(Socket m_socket)
     {
         System.out.println("Server ");
+        this.socket = m_socket;
         try{
+            entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            sortie = new PrintStream(socket.getOutputStream());
+        }catch (IOException ioe){
+            System.out.println(ioe.getMessage());
+            try{
+                socket.close();
+            }catch (IOException ioe2){
+                System.out.println(ioe2.getMessage());
+            }
+        }
+       /* try{
             this.ss = new ServerSocket(6666);
             System.out.println("Server waiting for connection...");
             this.socket = ss.accept();//établit la connexion
@@ -28,13 +41,21 @@ public class Server implements SocketServer {
             System.out.println(uhe.getMessage());
         }catch (IOException ioe) {
             System.out.println(ioe.getMessage());
-        }
+        }*/
+
     }
 
     @Override
     public void writeTo(String s) {
         //on écrit vers le flux de sortie, en accord avec le protocole du server
-        PrintWriter writer = new PrintWriter(output, true);
+        try {
+            output = socket.getOutputStream();
+            PrintWriter writer = new PrintWriter(output, true);
+            closeOutput();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
     @Override
     public String readFrom() {
@@ -42,6 +63,7 @@ public class Server implements SocketServer {
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             response = reader.readLine();
+            System.out.println(response);
         }catch(IOException e){
             e.printStackTrace();
         }

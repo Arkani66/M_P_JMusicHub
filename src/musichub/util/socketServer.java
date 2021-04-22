@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public interface SocketServer {
+public interface socketServer {
 
     public void writeTo(String s); // ouvre la connection server avec un socket
 

@@ -1,12 +1,11 @@
 package musichub.business;
 
-import musichub.util.SocketServer;
+import musichub.util.socketServer;
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 
-public class Client implements SocketServer {
+public class Client implements socketServer {
     private static String ip = "localhost";
     private static int port = 6666;
     private Socket socket;
@@ -30,7 +29,7 @@ public class Client implements SocketServer {
 
     public void writeTo(String s) {
         try {
-            this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
+            //this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
             this.output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
             //on écrit vers le flux de sortie, en accord avec le protocole du server
             PrintWriter writer = new PrintWriter(output, true);
@@ -47,6 +46,7 @@ public class Client implements SocketServer {
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
              response = reader.readLine();
+            System.out.println(response);
         }catch(IOException e){
             e.printStackTrace();
         }
