@@ -80,6 +80,7 @@ public class MusicHub
         livres = recup.readElementsLivres(livres);
         if (chansons.isEmpty()) throw new EmptyFichException ("Le fichier 'elements.xml' demandé est vide pour les chansons.");
         if (livres.isEmpty()) throw new EmptyFichException ("Le fichier 'elements.xml' demandé est vide pour les livres audio.");
+        System.out.println("\t ->Fini");
     }
 
 /**

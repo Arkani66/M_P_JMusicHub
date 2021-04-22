@@ -86,7 +86,7 @@ import java.util.Scanner;
         } catch (IOException ioe) {
             System.out.println(ioe.getMessage());
         }
-    }
+    }*/
 
     public void Recuperation(MusicHub hub){
         try
@@ -97,8 +97,6 @@ import java.util.Scanner;
             hub.recupAlbums();
             System.out.println("\nRécupération Eléments");
             hub.recupElements();
-
-
         }
         catch (EmptyFichException ex)
         {
@@ -152,8 +150,8 @@ import java.util.Scanner;
                 //client.writeTo("Vous avez choisi => Rajout d'une nouvelle chanson ");
                 System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'une nouvelle chanson "+ANSI_RESET);
                 hub.ajoutChansons();
-                System.out.println(ANSI_CYAN+"\n\tChansons actuellement dans le Hub");*/
-                /*hub.afftitre_genre();
+                System.out.println(ANSI_CYAN+"\n\tChansons actuellement dans le Hub");
+                hub.afftitre_genre();
                 break;
 
             case "a":
@@ -207,7 +205,7 @@ import java.util.Scanner;
                 break;
         }
         return fin;
-    }*/
+    }
 
     public MusicHubConsole(){
         String ip = "localhost";
@@ -216,18 +214,25 @@ import java.util.Scanner;
 
             OutputStream output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
             PrintWriter writer = new PrintWriter(output, true);//on écrit vers le flux de sortie, en accord avec le protocole du server
-            writer.println("Enter text: ");
+            writer.println(" say hello !");
             writer.flush();
             InputStream input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
 
             Scanner scanner = new Scanner(System.in);
+
+            System.out.println(ANSI_WHITE_BACKGROUND+ANSI_BLUE+"\n\n\t\tBienvenue sur le jMusicHub\n"+ANSI_RESET);
+            MusicHub hub = new MusicHub();
+
             String question = "null";
+            Recuperation(hub);
+            System.out.println("Toutes les récupérations sont finis");
+            AffichageMenu();
             while( question.compareTo("quitter") != 0)
             {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
                 String line = reader.readLine();//lit le flux d'entrée, en accord avec le protocole du serveur!
                 System.out.println(line);
-                writer.println("Client ask: " + question);
+                writer.println(question);
                 writer.flush();
                 question = scanner.nextLine();
             }

@@ -20,21 +20,20 @@ public class ServerConsole {
             socket = ss.accept();//établit la connexion
             System.out.println("Connected as " + ip);
             input = socket.getInputStream();
-
             output = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(output, true);
 
+            PrintWriter writer = new PrintWriter(output, true);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             String text = "null";
             String serverresponse;
+            //text = reader.readLine();
             while(text.compareTo("quitter") != 0 )
             {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                System.out.println("text ="+text);
                 text = reader.readLine();
-                System.out.println(text);
-                if(text.compareTo("null") ==0){
-                    writer.println("Server response: " + text);
-                    writer.flush();
-                }
+                System.out.println("Client ask :"+text);
+                writer.println("Server response: " + text);
+                writer.flush();
             }
             output.close();
             input.close();
