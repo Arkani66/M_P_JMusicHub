@@ -88,6 +88,16 @@ import java.util.Scanner;
         }
     }*/
 
+    /**
+     * This method clear the current screen
+     *
+     *
+     */
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
     public void Recuperation(MusicHub hub){
         try
         {
@@ -123,25 +133,28 @@ import java.util.Scanner;
 
     }
 
-    public boolean ChoixClient(MusicHub hub, InputStream input){
-        Scanner scanner = new Scanner(System.in);
+    //public void AffichageCouleur(){}
+
+    public String ChoixClient(/*MusicHub hub,*/ InputStream input, String reponse){
+        //Scanner scanner = new Scanner(System.in);
+        String retour = "null";
         boolean fin = false;
         //client.readFrom();
-        try{
+        /*try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             String line = reader.readLine();//lit le flux d'entrée, en accord avec le protocole du serveur!
             System.out.println(line);
 
         }catch (IOException ioe){
             System.out.println(ioe.getMessage());
-        }
+        }*/
 
 //             System.out.println("\n\tAffichage des chansons par albums");
 //             hub.affchanson_album();
 //             System.out.println("\n\tAffichage des éléments par playlist");
 //             hub.affplaylist();
 
-        String reponse = scanner.nextLine();
+        //String reponse = scanner.nextLine();
 //             System.out.println("reponse = "+reponse);
 
         switch(reponse)
@@ -149,62 +162,67 @@ import java.util.Scanner;
             case "c":
                 //client.writeTo("Vous avez choisi => Rajout d'une nouvelle chanson ");
                 System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'une nouvelle chanson "+ANSI_RESET);
-                hub.ajoutChansons();
+                //hub.ajoutChansons();
                 System.out.println(ANSI_CYAN+"\n\tChansons actuellement dans le Hub");
-                hub.afftitre_genre();
+                //hub.afftitre_genre();
                 break;
 
             case "a":
                 //client.writeTo("Vous avez choisi => Rajout d'un nouvel album ");
                 System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'un nouvel album "+ANSI_RESET);
-                hub.ajoutAlbum();
+                //hub.ajoutAlbum();
                 System.out.println(ANSI_CYAN+"\n\tAlbums actuellement dans le Hub");
-                hub.afftitre_date();
+                //hub.afftitre_date();
                 break;
 
             case "+":
                 System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'une chanson existante à un album "+ANSI_RESET);
-                hub.ajoutChansonAlbum();
+                //hub.ajoutChansonAlbum();
                 System.out.println(ANSI_CYAN+"\n\tAffichage des chansons par albums");
-                hub.affchanson_album();
+                //hub.affchanson_album();
                 break;
 
             case "l":
                 System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'un nouveau livre audio "+ANSI_RESET);
-                hub.ajoutLivreAudio();
+                //hub.ajoutLivreAudio();
                 System.out.println(ANSI_CYAN+"\n\tLivres audios actuellement dans le Hub");
-                hub.afflivre_auteur();
+                //hub.afflivre_auteur();
                 break;
 
             case "p":
                 System.out.println(ANSI_PURPLE+"Vous avez choisi => Création d'une nouvelle playlist à partir de chanson existante "+ANSI_RESET);
-                hub.ajoutPlaylist();
+                //hub.ajoutPlaylist();
                 System.out.println(ANSI_CYAN+"\nPlaylists actuellement dans le Hub"+ANSI_RESET);
-                hub.affplaylist();
+                //hub.affplaylist();
                 break;
 
             case "-":
                 System.out.println(ANSI_PURPLE+"Vous avez choisi => Suppression d'une playlist "+ANSI_RESET);
-                hub.suppressPlaylist();
+                //hub.suppressPlaylist();
                 break;
 
             case "s":
                 System.out.println(ANSI_PURPLE+"Vous avez choisi => Sauvegarde des playlists, des albums, des chansons, des livres audios"+ANSI_RESET);
-                hub.sauvegarde();
+                //hub.sauvegarde();
                 break;
 
             case "h":
                 System.out.println("Vous avez choisi => Aide avec les détails des commandes précédentes ");
-                hub.aideCommande();
+                //hub.aideCommande();
                 break;
             case "q":
+                fin = true;
+                break;
+
+            case "quitter":
                 fin = true;
                 break;
             default :
                 System.out.println(ANSI_RED+"Saisie incorrecte. Veuillez choisir une option proposée"+ANSI_RESET);
                 break;
         }
-        return fin;
+        if(fin) retour = "quitter";
+        return retour;
     }
 
     public MusicHubConsole(){
@@ -214,29 +232,35 @@ import java.util.Scanner;
 
             OutputStream output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
             PrintWriter writer = new PrintWriter(output, true);//on écrit vers le flux de sortie, en accord avec le protocole du server
-            writer.println(" say hello !");
+            writer.println(" hello !");
             writer.flush();
             InputStream input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
-
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             Scanner scanner = new Scanner(System.in);
 
             System.out.println(ANSI_WHITE_BACKGROUND+ANSI_BLUE+"\n\n\t\tBienvenue sur le jMusicHub\n"+ANSI_RESET);
-            MusicHub hub = new MusicHub();
+            //MusicHub hub = new MusicHub();
 
             String question = "null";
-            Recuperation(hub);
+            String reponseC;
+            //Recuperation(hub);
+            clearScreen();
             System.out.println("Toutes les récupérations sont finis");
-            AffichageMenu();
             while( question.compareTo("quitter") != 0)
             {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-                String line = reader.readLine();//lit le flux d'entrée, en accord avec le protocole du serveur!
-                System.out.println(line);
+                String line;
+                while((line = reader.readLine()).compareTo("OK") != 0 ){
+                    System.out.println(line);
+                }
+                //line = reader.readLine();//lit le flux d'entrée, en accord avec le protocole du serveur!
+                //System.out.println(line);
+                question = scanner.nextLine();
                 writer.println(question);
                 writer.flush();
-                question = scanner.nextLine();
-            }
 
+               // question = ChoixClient(input,question);
+            }
+            writer.println("quitter");
             input.close();//clôt le InputStream
             output.close();//clôt le OutputStream
             socket.close();//clôt le socket

@@ -2,6 +2,8 @@ package musichub.main;
 
 import musichub.business.*;
 import musichub.util.*;
+
+import java.io.PrintWriter;
 import java.util.*;
 
 import java.util.Scanner;
@@ -201,7 +203,7 @@ public class MusicHub
 /**
 * Méthode qui vérifie que la date entrée est valide selon nos critères
 * (NOTE : ne marche pas pour l'instant)
-* @see ajoutAlbum()
+* @see public void ajoutAlbum()
 * @param date_a_verif
 * @return retour true si la date est valide, false si la date n'est pas valide
 */
@@ -240,101 +242,28 @@ public class MusicHub
 /**
 * Méthode qui ajoute une chanson à la liste de chansons
 * Demande : titre, artiste, genre, duree
+ * @param artiste
+ * @param titre
+ * @param genre1
+ * @param duree
 */
-    public void ajoutChansons(){
-        String artiste = null;
-        String titre = null;
-        String genre = null;
+    public void ajoutChansons(String artiste, String titre, Genre genre1, int duree){
         String id = null;
-        Genre genre1=null;
-        int duree;
-        artiste = scanner.nextLine();
-        System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de l'artiste : "+ANSI_RESET+" ");
-        artiste = scanner.nextLine();
-        if( artiste == null) artiste = scanner.nextLine();
-//         artiste = verifString("Donnez le nom de l'artiste : ",artiste);
-        System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de la chanson : "+ANSI_RESET+" ");
-        titre = scanner.nextLine();
-        if( titre == null) titre = scanner.nextLine();
-//         titre = verifString("Donnez le nom de la chanson : ",titre);
         id = creaID(2);
-        while( genre1 == null)
-        {
-            System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Choisissez le genre de la chanson : Jazz(J), Classique(C), Hip-Hop(H), Rock(R), Pop(P), Rap(A)"+ANSI_RESET+" ");
-            genre = scanner.nextLine();
-            switch(genre)
-            {
-                case "J" :
-                    genre1 = Genre.JAZZ;
-                    break;
-                
-                case "C":
-                    genre1 = Genre.CLASSIQUE;
-                    break;
-                
-                case "H":
-                    genre1 = Genre.HIPHOP;
-                    break;
-                
-                case "R":
-                    genre1 = Genre.ROCK;
-                    break;
-                
-                case "P":
-                    genre1 = Genre.POP;
-                    break;
-                
-                case "A":
-                    genre1 = Genre.RAP;
-                    break;
-                default :
-                    System.out.println(ANSI_RED+"Veuillez choisir un genre existant !"+ANSI_RESET);
-                    break;
-            }
-        }
-        System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la durée de la chanson en secondes (Attention uniquement un nombre est attendu): "+ANSI_RESET+" ");
-        duree = scanner.nextInt();
-        System.out.println("Création de la Chanson : "+artiste+", "+titre+", "+id);
         Chanson crea_song = new Chanson(titre,artiste,duree,id,"MP3",genre1);
-        System.out.println(ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+ANSI_RESET+ANSI_BLACK_BACKGROUND+ANSI_CYAN+crea_song.toString()+" !"+ANSI_RESET);
+        System.out.println(ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+ANSI_RESET+ANSI_BLACK_BACKGROUND+ANSI_CYAN+crea_song.toString()+id+" !"+ANSI_RESET);
         chansons.add(crea_song);
     }
 
 /**
 * Méthode qui ajoute un album à la liste des albums
-* Demande : titre, artiste, date, duree 
+* Demande : titre, artiste, date, duree
+ * @param
+ * @return void
 */
-    public void ajoutAlbum(){
-        String artiste = null;
-        String titre = null;
+    public void ajoutAlbum(String artiste, String titre, int duree, Date date1){
         String id = null;
-        String date = null;
-        Date date1 = null;
-        int duree;
-        boolean sortie = true;
-        artiste = scanner.nextLine();
-        System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de l'artiste : "+ANSI_RESET+" ");
-        artiste = scanner.nextLine();
-        if( artiste == null) artiste = scanner.nextLine();
-        System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de l'album : "+ANSI_RESET+" ");
-        titre = scanner.nextLine();
-        if( titre == null) titre = scanner.nextLine();
         id = creaID(1);
-        do
-        {
-            System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la date de sortie de l'album : (avec le format : 'yyyy-MM-dd')"+ANSI_RESET+" ");
-            date = scanner.nextLine();
-            if( date == null) date = scanner.nextLine();
-            sortie = this.verifDate(date);
-        }while( sortie != true);
-        try{
-            date1 =  new SimpleDateFormat("yyyy-MM-dd").parse(date);
-        } catch (Exception e) {
-            System.out.println(ANSI_RED+"Date hasn't working out"+ANSI_RESET);
-        }
-        System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la durée de l'album : "+ANSI_RESET+" ");
-        duree = scanner.nextInt();
-        System.out.println("Création de l'album : "+artiste+", "+titre+", "+id);
         Album crea_album = new Album(titre,artiste,duree,date1,id);
         System.out.println(ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+ANSI_RESET+ANSI_BLACK_BACKGROUND+ANSI_CYAN+crea_album.toString()+" !"+ANSI_RESET);
         albums.add(crea_album);
@@ -343,7 +272,7 @@ public class MusicHub
 /**
 * Méthode qui ajoute une chanson à la liste des chansons et à un album
 */
-    public void ajoutChansonAlbum(){
+    public void ajoutChansonAlbum(PrintWriter writer){
     /*on affiche les chansons existantes et les albums existants*/
         System.out.println(ANSI_CYAN+"Les Chansons existantes :\n"+chansons.toString()+ANSI_RESET);
         System.out.println(ANSI_CYAN+"Les Albums existants :\n"+albums.toString()+ANSI_RESET);
