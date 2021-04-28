@@ -2,28 +2,14 @@ package musichub.main;
 
 import musichub.util.EmptyFichException;
 import musichub.util.Genre;
+import musichub.util.socketServer;
 
 import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ServerConsole {
-
-    public void writeTo(PrintWriter writer, String s){
-        writer.println(s);
-        writer.flush();
-    }
-
-    public String readFrom(BufferedReader reader){
-        String textread = null;
-        try {
-             textread = reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return textread;
-    }
+public class ServerConsole implements socketServer {
 
     public void Recuperation(MusicHub hub){
         try
@@ -175,14 +161,14 @@ public class ServerConsole {
                 writeTo(writer,serverrespond.concat("Création de l'album : "+artiste+", "+titre+", "+date));
                 writeTo(writer,serverrespond.concat("\n\tAlbums actuellement dans le Hub"));
                 writeTo(writer,"OK");
-                hub.ajoutAlbum(artiste,titre,duree,date1);
+                hub.ajoutAlbum(artiste,titre,duree,date1,writer);
                 hub.afftitre_date();
                 break;
 
             case "+":
                 System.out.println("Vous avez choisi => Rajout d'une chanson existante à un album ");
                 writeTo(writer,serverask.concat("Vous avez choisi => Rajout d'une chanson existante à un album "));
-                //hub.ajoutChansonAlbum();
+                hub.ajoutChansonAlbum(writer, reader);
                 System.out.println("\n\tAffichage des chansons par albums");
                 writeTo(writer,serverask.concat("\n\tAffichage des chansons par albums"));
                 hub.affchanson_album();
@@ -262,8 +248,8 @@ public class ServerConsole {
             MusicHub hub = new MusicHub();
             Recuperation(hub);
 
+            AffichageMenu(writer);
             while( !(text.equals("quitter")) ){
-                AffichageMenu(writer);
                 //while( !(text.equals("null")) )
                 //{
                     System.out.println("text ="+text);
@@ -278,6 +264,7 @@ public class ServerConsole {
                 System.out.println("2 text ="+text);
                 text = readFrom(reader);
                 text = ChoixClient(hub,writer,reader,text);
+                AffichageMenu(writer);
             }
             output.close();
             input.close();
@@ -333,6 +320,38 @@ public class ServerConsole {
         {
             server.readFrom();
         }*/
+
+    }
+
+    @Override
+    public void writeTo(PrintWriter writer,String s) {
+        writer.println(s);
+        writer.flush();
+    }
+
+    @Override
+    public String readFrom(BufferedReader reader) {
+        String textread = null;
+        try {
+            textread = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return textread;
+    }
+
+    @Override
+    public void closeOutput() {
+
+    }
+
+    @Override
+    public void closeInput() {
+
+    }
+
+    @Override
+    public void closeSocket() {
 
     }
 }

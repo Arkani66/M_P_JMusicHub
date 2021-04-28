@@ -46,11 +46,11 @@ public class Server implements socketServer {
     }
 
     @Override
-    public void writeTo(String s) {
+    public void writeTo(PrintWriter writer,String s) {
         //on écrit vers le flux de sortie, en accord avec le protocole du server
         try {
             output = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(output, true);
+            writer.println(s);
             closeOutput();
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,10 +58,9 @@ public class Server implements socketServer {
 
     }
     @Override
-    public String readFrom() {
+    public String readFrom(BufferedReader reader) {
         String response = null;
         try{
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             response = reader.readLine();
             System.out.println(response);
         }catch(IOException e){

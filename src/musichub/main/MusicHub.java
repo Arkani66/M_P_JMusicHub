@@ -3,6 +3,8 @@ package musichub.main;
 import musichub.business.*;
 import musichub.util.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -21,7 +23,7 @@ import java.util.Calendar;
  */
 
 
-public class MusicHub
+public class MusicHub implements socketServer
 {
     Scanner scanner = new Scanner(System.in);
     LinkedList<Album> albums;
@@ -261,28 +263,32 @@ public class MusicHub
  * @param
  * @return void
 */
-    public void ajoutAlbum(String artiste, String titre, int duree, Date date1){
+    public void ajoutAlbum(String artiste, String titre, int duree, Date date1,PrintWriter writer){
         String id = null;
         id = creaID(1);
         Album crea_album = new Album(titre,artiste,duree,date1,id);
         System.out.println(ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+ANSI_RESET+ANSI_BLACK_BACKGROUND+ANSI_CYAN+crea_album.toString()+" !"+ANSI_RESET);
+       // writer.println(ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+ANSI_RESET+ANSI_BLACK_BACKGROUND+ANSI_CYAN+crea_album.toString()+" !"+ANSI_RESET);
         albums.add(crea_album);
     }
     
 /**
 * Méthode qui ajoute une chanson à la liste des chansons et à un album
 */
-    public void ajoutChansonAlbum(PrintWriter writer){
+    public void ajoutChansonAlbum(PrintWriter writer, BufferedReader reader){
     /*on affiche les chansons existantes et les albums existants*/
         System.out.println(ANSI_CYAN+"Les Chansons existantes :\n"+chansons.toString()+ANSI_RESET);
+        writer.println(ANSI_CYAN+"Les Chansons existantes :\n"+chansons.toString()+ANSI_RESET);
         System.out.println(ANSI_CYAN+"Les Albums existants :\n"+albums.toString()+ANSI_RESET);
+        writer.println(ANSI_CYAN+"Les Albums existants :\n"+albums.toString()+ANSI_RESET);
     /*choix de la chanson à ajouter à un album*/
         String nomchanson = null;
         String nomalbum = null;
         int index = -1,verif=-1,cmpt = 0;
         System.out.print("\n"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le titre de la chanson à déplacer: "+ANSI_RESET+" ");
-        nomchanson = scanner.nextLine();
-        if( nomchanson == null) nomchanson = scanner.nextLine();
+        writer.println("\n"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le titre de la chanson à déplacer: "+ANSI_RESET+" ");
+        nomchanson = readFrom(reader);
+        if( nomchanson == null) readFrom(reader);
     /*recherche de la chanson dans la liste chansons : /!\ si elle n'est pas trouvé demander de vérifier l'ortographe et de réécrire */
         for(Chanson courant : chansons){
             if(nomchanson.equals(courant.getTitre())==true) 
@@ -295,11 +301,12 @@ public class MusicHub
         {
             int continu = 1;
             System.out.println(ANSI_RED+"Cette chanson n'existe pas. Voulez vous recommencer ? OUI(0) ou NON(1)"+ANSI_RESET+" ");
-            continu = scanner.nextInt();
+            continu = Integer.parseInt(readFrom(reader));
             while( continu == 0)
             {
                 System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le titre de la chanson à déplacer: "+ANSI_RESET+" ");
-                nomchanson = scanner.nextLine();
+                writer.println(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le titre de la chanson à déplacer: "+ANSI_RESET+" ");
+                nomchanson = readFrom(reader);
                 cmpt = 0;
                 for(Chanson courant : chansons){
                     if(nomchanson.equals(courant.getTitre())==true)
@@ -319,8 +326,9 @@ public class MusicHub
         while( verif == -1)
         {
             System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de la playlist dans laquelle vous voulez mettre cette chanson: "+ANSI_RESET+" ");
-            nomalbum = scanner.nextLine();
-            if( nomalbum == null) nomalbum = scanner.nextLine();
+            writer.println(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de la playlist dans laquelle vous voulez mettre cette chanson: "+ANSI_RESET+" ");
+            nomalbum = readFrom(reader);
+            if( nomalbum == null) nomalbum = readFrom(reader);
             cmpt = 0;
             for(Album courant : albums){
                 if(nomalbum.equals(courant.getTitre())==true)
@@ -329,7 +337,10 @@ public class MusicHub
                 }
                 cmpt++; 
             }
-            if( verif == -1) System.out.println(ANSI_RED+"Cet album n'existe pas. Vérifiez l'ortographe et recommencez."+ANSI_RESET);
+            if( verif == -1){
+                System.out.println(ANSI_RED+"Cet album n'existe pas. Vérifiez l'ortographe et recommencez."+ANSI_RESET);
+                writer.println(ANSI_RED+"Cet album n'existe pas. Vérifiez l'ortographe et recommencez."+ANSI_RESET);
+            }
         }
     /* split l'ID de l'album et isoler la partie album (1)*/
         Album album = albums.get(verif);
@@ -827,5 +838,36 @@ public class MusicHub
         }
         
     }
-    
+
+    @Override
+    public void writeTo(PrintWriter writer, String s) {
+        writer.println(s);
+        writer.flush();
+    }
+
+    @Override
+    public String readFrom(BufferedReader reader) {
+        String textread = null;
+        try {
+            textread = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return textread;
+    }
+
+    @Override
+    public void closeOutput() {
+
+    }
+
+    @Override
+    public void closeInput() {
+
+    }
+
+    @Override
+    public void closeSocket() {
+
+    }
 }
