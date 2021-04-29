@@ -8,9 +8,9 @@ import java.net.Socket;
 
 public interface socketServer {
 
-    public void writeTo(PrintWriter writer,String s); // ouvre la connection server avec un socket
+    public void writeTo(OutputStream output,String s); // ouvre la connection server avec un socket
 
-    public String readFrom(BufferedReader reader);
+    public String readFrom(InputStream input);
 
     public void closeOutput(); //unused
 

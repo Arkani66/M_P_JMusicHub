@@ -27,11 +27,11 @@ public class Client implements socketServer {
         }
     }
 
-    public void writeTo(PrintWriter writer,String s) {
+    public void writeTo(OutputStream output,String s) {
         try {
             //this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
             this.output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
-            //on écrit vers le flux de sortie, en accord avec le protocole du server
+            PrintWriter writer = new PrintWriter(output, true);//on écrit vers le flux de sortie, en accord avec le protocole du server
             writer.println(s);
             writer.flush();
         } catch (IOException e) {
@@ -40,9 +40,10 @@ public class Client implements socketServer {
 
     }
 
-    public String readFrom(BufferedReader reader){
+    public String readFrom(InputStream input){
         String response = null;
         try{
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
              response = reader.readLine();
             System.out.println(response);
         }catch(IOException e){
