@@ -613,13 +613,14 @@ public class MusicHub implements socketServer
         	System.out.println("Les Livres-Audios existants :\n"+livres.toString()+ANSI_RESET);
         	writeTo(output,"Les Livres-Audios existants :\n"+livres.toString()+ANSI_RESET);
         	System.out.println(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Veuillez choisir une chanson ou un livre à ajouter à votre playlist."+ANSI_RESET);
-        	writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Veuillez choisir une chanson ou un livre à ajouter à votre playlist."+ANSI_RESET);
         	System.out.println("\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Tapez 'C' pour ajouter une chanson et 'L' pour un livre"+ANSI_RESET);
-            writeTo(output,"\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Tapez 'C' pour ajouter une chanson et 'L' pour un livre"+ANSI_RESET);
             System.out.println("\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Pour arreter les ajouts, tapez 'S'"+ANSI_RESET+" ");
-            writeTo(output,"\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Pour arreter les ajouts, tapez 'S'"+ANSI_RESET+" ");
-            writeTo(output,"OK");
         	do{
+                writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Veuillez choisir une chanson ou un livre à ajouter à votre playlist."+ANSI_RESET);
+                writeTo(output,"\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Tapez 'C' pour ajouter une chanson et 'L' pour un livre"+ANSI_RESET);
+                writeTo(output,"\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Pour arreter les ajouts, tapez 'S'"+ANSI_RESET+" ");
+                writeTo(output,"OK");
+
                 String choix;
                 choix = readFrom(input);
                 switch(choix)
@@ -949,11 +950,12 @@ public class MusicHub implements socketServer
         writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tVérification (v) : Affiche les vérifications de récupération des fichiers. "+ANSI_RESET);
         writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"Pour sortir de l'aide tappez 'z'. "+ANSI_RESET);
         writeTo(output,ANSI_BLUE+"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+ANSI_RESET);
-        writeTo(output,"OK");
         String menu;
         int fin = 1;
         while( fin == 1)
         {
+            writeTo(output,"Entrez votre choix");
+            writeTo(output,"OK");
             menu = readFrom(input);
             
             switch(menu)
@@ -1040,10 +1042,8 @@ public class MusicHub implements socketServer
                     writeTo(output,ANSI_RED+"Saisie incorrecte. Veuillez choisir une option proposée"+ANSI_RESET);
                     break;
             }
-            writeTo(output,"OK");
-        
         }
-        
+        System.out.println("fin aide");
     }
 
     @Override

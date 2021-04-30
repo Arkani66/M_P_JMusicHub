@@ -255,9 +255,13 @@ import java.util.Scanner;
                 //line = reader.readLine();//lit le flux d'entrée, en accord avec le protocole du serveur!
                 //System.out.println(line);
                 question = scanner.nextLine();
-                writer.println(question);
-                writer.flush();
-
+                System.out.println(ANSI_BLUE+"scanner = "+question+ANSI_RESET);
+                if( (!question.equals(null)) || (!question.equals("\n")))
+                {
+                    writer.println(question);
+                    writer.flush();
+                }
+                System.out.println("fin boucle");
                // question = ChoixClient(input,question);
             }
             writer.println("quitter");

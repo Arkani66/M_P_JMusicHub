@@ -45,7 +45,7 @@ public class ServerConsole implements socketServer {
 
     }
 
-    public String ChoixClient(MusicHub hub, OutputStream output, InputStream input, String reponse){
+    public String ChoixClient(MusicHub hub, OutputStream output, InputStream input, String reponse, String serverresponse){
         String retour = "null";
         String serverrespond = "Server respond : ";
         String serverask = "Server ask : ";
@@ -57,7 +57,8 @@ public class ServerConsole implements socketServer {
         int duree;
         String date = null;
         Date date1 = null;
-
+        writeTo(output,serverrespond+reponse);
+        System.out.println("reponse = "+reponse);
         switch(reponse)
         {
             case "c":
@@ -166,6 +167,7 @@ public class ServerConsole implements socketServer {
                 //hub.ajoutAlbum(output, input);
                 hub.afftitre_date(output);
                 writeTo(output,"OK");
+                retour = "a";
                 break;
 
             case "+":
@@ -176,6 +178,7 @@ public class ServerConsole implements socketServer {
                 writeTo(output,serverask.concat("\n\tAffichage des chansons par albums"));
                 hub.affchanson_album(output);
                 writeTo(output,"OK");
+                retour = "+";
                 break;
 
             case "l":
@@ -188,6 +191,7 @@ public class ServerConsole implements socketServer {
                 writeTo(output,"OK");
                 hub.afflivre_auteur(output);
                 writeTo(output,"OK");
+                retour = "l";
                 break;
 
             case "p":
@@ -197,6 +201,8 @@ public class ServerConsole implements socketServer {
                 System.out.println("\nPlaylists actuellement dans le Hub");
                 writeTo(output,serverrespond.concat("\nPlaylists actuellement dans le Hub"));
                 hub.affplaylist(output);
+                writeTo(output,"OK");
+                retour = "p";
                 break;
 
             case "-":
@@ -205,6 +211,7 @@ public class ServerConsole implements socketServer {
                 writeTo(output,"OK");
                 hub.suppressPlaylist(output,input);
                 writeTo(output,"OK");
+                retour = "-";
                 break;
 
             case "s":
@@ -213,21 +220,28 @@ public class ServerConsole implements socketServer {
                 writeTo(output,"OK");
                 hub.sauvegarde(output);
                 writeTo(output,"OK");
+                retour = "s";
                 break;
 
             case "h":
+                writeTo(output,"coucou");
                 System.out.println("Vous avez choisi => Aide avec les détails des commandes précédentes ");
                 writeTo(output,serverrespond.concat("Vous avez choisi => Aide avec les détails des commandes précédentes "));
-                writeTo(output,"OK");
                 hub.aideCommande(output,input);
                 writeTo(output,"OK");
+                retour = "h";
                 break;
             case "q":
                 fin = true;
+                retour = "quitter";
                 break;
 
             case "quitter":
                 fin = true;
+                retour = "quitter";
+                break;
+            case "":
+                retour = ChoixClient(hub,output,input,serverresponse,reponse);
                 break;
             default :
                 System.out.println("Saisie incorrecte. Veuillez choisir une option proposée");
@@ -235,7 +249,6 @@ public class ServerConsole implements socketServer {
                 writeTo(output,"OK");
                 break;
         }
-        if(fin) retour = "quitter";
         return retour;
     }
 
@@ -256,28 +269,46 @@ public class ServerConsole implements socketServer {
 
             PrintWriter writer = new PrintWriter(output, true);
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            String serverresponse;
+            String serverresponse = null;
 
             MusicHub hub = new MusicHub();
             Recuperation(hub);
-
-            AffichageMenu(output);
+            int cpt=0;
+            System.out.println("text =" + text);
+            text = readFrom(input);
+            cpt++;
+            System.out.println("Client ask :" + text);
+            String s = "Server respond : ";
+            s = s.concat(text);
+            writeTo(output, s);
             while( !(text.equals("quitter")) ){
-                //while( !(text.equals("null")) )
-                //{
-                    System.out.println("text ="+text);
-                    text = readFrom(input);
-                    System.out.println("Client ask :"+text);
-                    String s = "Server respond : ";
-                    s = s.concat(text);
-                    writeTo(output,s);
-                    writeTo(output,"OK");
-                    // if(!(text.equals("null")) ) text = ChoixClient(hub,writer,input,text);
-                //}
-                System.out.println("2 text ="+text);
-                text = readFrom(input);
-                text = ChoixClient(hub,output,input,text);
+
+                System.out.println("avant menu");
                 AffichageMenu(output);
+                writeTo(output, "OK");
+                /*while( (text = readFrom(input)).equals(null)  )
+                {
+
+                }*/
+                cpt=0;
+
+                text = readFrom(input);
+                System.out.print("2 text ="+text);
+                if( (!(text.equals("\n"))) || (!(text.equals(null)))/* || (!(text.equals("")))*/)
+                {
+                    System.out.print("3 text ="+text);
+                    serverresponse = ChoixClient(hub,output,input,text, serverresponse);
+                }
+               /*else {
+                    do{
+                        System.out.println(cpt);
+                        text = readFrom(input);
+                        writeTo(output, String.valueOf(cpt));
+                        cpt++;
+                    }while( text.equals(null)  );
+                }*/
+                //AffichageMenu(output);
+                writeTo(output,"whys");
             }
             output.close();
             input.close();
