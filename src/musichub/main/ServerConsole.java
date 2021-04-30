@@ -61,110 +61,20 @@ public class ServerConsole implements socketServer {
         switch(reponse)
         {
             case "c":
-                /*writeTo(writer,serverrespond.concat("Vous avez choisi => Rajout d'une nouvelle chanson "));
-                System.out.println("Vous avez choisi => Rajout d'une nouvelle chanson ");
-                System.out.print("Donnez le nom de l'artiste : ");
-                writeTo(writer,serverask.concat("Donnez le nom de l'artiste : "));
-                writeTo(writer,"OK");
-                artiste = readFrom(reader);
-                System.out.print("artiste="+artiste);
-                if( artiste == null) artiste = readFrom(reader);
-                System.out.print("Donnez le nom de la chanson : ");
-                writeTo(writer,serverask.concat("Donnez le nom de la chanson : "));
-                writeTo(writer,"OK");
-                titre = readFrom(reader);
-                System.out.print("titre : "+titre);
-                if( titre == null) titre = readFrom(reader);
-                while( genre1 == null)
-                {
-                    System.out.print("Choisissez le genre de la chanson : Jazz(J), Classique(C), Hip-Hop(H), Rock(R), Pop(P), Rap(A)");
-                    writeTo(writer,serverask.concat("Choisissez le genre de la chanson : Jazz(J), Classique(C), Hip-Hop(H), Rock(R), Pop(P), Rap(A)"));
-                    writeTo(writer,"OK");
-                    genre = readFrom(reader);
-                    System.out.print("genre : "+genre);
-                    switch(genre)
-                    {
-                        case "J" :
-                            genre1 = Genre.JAZZ;
-                            break;
-
-                        case "C":
-                            genre1 = Genre.CLASSIQUE;
-                            break;
-
-                        case "H":
-                            genre1 = Genre.HIPHOP;
-                            break;
-
-                        case "R":
-                            genre1 = Genre.ROCK;
-                            break;
-
-                        case "P":
-                            genre1 = Genre.POP;
-                            break;
-
-                        case "A":
-                            genre1 = Genre.RAP;
-                            break;
-                        default :
-                            System.out.println("Veuillez choisir un genre existant !");
-                            writeTo(writer,serverask.concat("Veuillez choisir un genre existant !"));
-                            break;
-                    }
-                }
-                System.out.print("Donnez la durée de la chanson en secondes (Attention uniquement un nombre est attendu): ");
-                writeTo(writer,serverask.concat("Donnez la durée de la chanson en secondes (Attention uniquement un nombre est attendu): "));
-                writeTo(writer,"OK");
-                duree = Integer.parseInt(readFrom(reader));
-                System.out.println("Création de la Chanson : "+artiste+", "+titre+", "+duree);
-                writeTo(writer,"Création de la Chanson : "+artiste+", "+titre+", "+duree);
-                hub.ajoutChansons(artiste,titre,genre1,duree);*/
                 hub.ajoutChansons(output,input);
                 System.out.println("\n\tChansons actuellement dans le Hub");
                 writeTo(output,"\n\tChansons actuellement dans le Hub");
-                hub.afftitre_genre(output);
+                hub.afftitre_genre(output,input);
+                writeTo(output,"fin");
+                writeTo(output,"OK");
                 break;
 
             case "a":
                 System.out.println("Vous avez choisi => Rajout d'un nouvel album ");
                 writeTo(output,serverask.concat("Vous avez choisi => Rajout d'un nouvel album "));
-                boolean sortie = true;
-                System.out.print("Donnez le nom de l'artiste : ");
-                writeTo(output,serverask.concat("Donnez le nom de l'artiste : "));
-                writeTo(output,"OK");
-                artiste = readFrom(input);
-                if( artiste == null) artiste = readFrom(input);
-                System.out.print("Donnez le nom de l'album : ");
-                writeTo(output,serverask.concat("Donnez le nom de l'album : "));
-                writeTo(output,"OK");
-                titre = readFrom(input);
-                if( titre == null) titre = readFrom(input);
-                do
-                {
-                    System.out.print("Donnez la date de sortie de l'album : (avec le format : 'yyyy-MM-dd')");
-                    writeTo(output,serverask.concat("Donnez la date de sortie de l'album : (avec le format : 'yyyy-MM-dd')"));
-                    writeTo(output,"OK");
-                    date = readFrom(input);
-                    if( date == null) date = readFrom(input);
-                }while( sortie != true);
-                try{
-                    date1 =  new SimpleDateFormat("yyyy-MM-dd").parse(date);
-                } catch (Exception e) {
-                    System.out.println("Date hasn't working out");
-                }
-                System.out.print("Donnez la durée de l'album : ");
-                writeTo(output,serverask.concat("Donnez la durée de l'album : "));
-                writeTo(output,"OK");
-                duree = Integer.parseInt(readFrom(input));
-                System.out.println("Création de l'album : "+artiste+", "+titre+", "+date);
-                System.out.println("\n\tAlbums actuellement dans le Hub");
-                writeTo(output,serverrespond.concat("Création de l'album : "+artiste+", "+titre+", "+date));
-                writeTo(output,serverrespond.concat("\n\tAlbums actuellement dans le Hub"));
-                writeTo(output,"OK");
-                hub.ajoutAlbum(artiste,titre,duree,date1,output);
-                //hub.ajoutAlbum(output, input);
-                hub.afftitre_date(output);
+                hub.ajoutAlbum(output, input);
+                hub.afftitre_date(output,input);
+                writeTo(output,"fin");
                 writeTo(output,"OK");
                 break;
 
@@ -174,19 +84,19 @@ public class ServerConsole implements socketServer {
                 hub.ajoutChansonAlbum(output, input);
                 System.out.println("\n\tAffichage des chansons par albums");
                 writeTo(output,serverask.concat("\n\tAffichage des chansons par albums"));
-                hub.affchanson_album(output);
+                hub.affchanson_album(output,input);
+                writeTo(output,"fin");
                 writeTo(output,"OK");
                 break;
 
             case "l":
                 System.out.println("Vous avez choisi => Rajout d'un nouveau livre audio ");
                 writeTo(output,serverrespond.concat("Vous avez choisi => Rajout d'un nouveau livre audio "));
-                writeTo(output,"OK");
                 hub.ajoutLivreAudio(output, input);
                 System.out.println("\n\tLivres audios actuellement dans le Hub");
                 writeTo(output,serverrespond.concat("\n\tLivres audios actuellement dans le Hub"));
-                writeTo(output,"OK");
-                hub.afflivre_auteur(output);
+                hub.afflivre_auteur(output,input);
+                writeTo(output,"fin");
                 writeTo(output,"OK");
                 break;
 
@@ -196,30 +106,32 @@ public class ServerConsole implements socketServer {
                 hub.ajoutPlaylist(output, input);
                 System.out.println("\nPlaylists actuellement dans le Hub");
                 writeTo(output,serverrespond.concat("\nPlaylists actuellement dans le Hub"));
-                hub.affplaylist(output);
+                hub.affplaylist(output, input);
+                writeTo(output,"fin");
+                writeTo(output,"OK");
                 break;
 
             case "-":
                 System.out.println("Vous avez choisi => Suppression d'une playlist ");
                 writeTo(output,serverrespond.concat("Vous avez choisi => Suppression d'une playlist "));
-                writeTo(output,"OK");
                 hub.suppressPlaylist(output,input);
+                writeTo(output,"fin");
                 writeTo(output,"OK");
                 break;
 
             case "s":
                 System.out.println("Vous avez choisi => Sauvegarde des playlists, des albums, des chansons, des livres audios");
                 writeTo(output,serverrespond.concat("Vous avez choisi => Sauvegarde des playlists, des albums, des chansons, des livres audios"));
-                writeTo(output,"OK");
-                hub.sauvegarde(output);
+                hub.sauvegarde(output,input);
+                writeTo(output,"fin");
                 writeTo(output,"OK");
                 break;
 
             case "h":
                 System.out.println("Vous avez choisi => Aide avec les détails des commandes précédentes ");
                 writeTo(output,serverrespond.concat("Vous avez choisi => Aide avec les détails des commandes précédentes "));
-                writeTo(output,"OK");
                 hub.aideCommande(output,input);
+                writeTo(output,"fin");
                 writeTo(output,"OK");
                 break;
             case "q":
@@ -228,6 +140,8 @@ public class ServerConsole implements socketServer {
 
             case "quitter":
                 fin = true;
+                writeTo(output,"fin");
+                writeTo(output,"OK");
                 break;
             default :
                 System.out.println("Saisie incorrecte. Veuillez choisir une option proposée");
@@ -260,24 +174,14 @@ public class ServerConsole implements socketServer {
 
             MusicHub hub = new MusicHub();
             Recuperation(hub);
+            String s = "Server respond : ";
 
-            AffichageMenu(output);
             while( !(text.equals("quitter")) ){
-                //while( !(text.equals("null")) )
-                //{
-                    System.out.println("text ="+text);
-                    text = readFrom(input);
-                    System.out.println("Client ask :"+text);
-                    String s = "Server respond : ";
-                    s = s.concat(text);
-                    writeTo(output,s);
-                    writeTo(output,"OK");
-                    // if(!(text.equals("null")) ) text = ChoixClient(hub,writer,input,text);
-                //}
-                System.out.println("2 text ="+text);
                 text = readFrom(input);
+                System.out.println("text ="+text);
+                System.out.println("Client ask :"+text);
+                System.out.println("2 text ="+text);
                 text = ChoixClient(hub,output,input,text);
-                AffichageMenu(output);
             }
             output.close();
             input.close();

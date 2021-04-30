@@ -297,7 +297,6 @@ public class MusicHub implements socketServer
                 default :
                     System.out.println(ANSI_RED+"Veuillez choisir un genre existant !"+ANSI_RESET);
                     writeTo(output,ANSI_RED+"Veuillez choisir un genre existant !"+ANSI_RESET);
-                    writeTo(output,"OK");
                     break;
             }
         }
@@ -307,41 +306,46 @@ public class MusicHub implements socketServer
         duree = Integer.parseInt(readFrom(input));
         System.out.println("Création de la Chanson : "+artiste+", "+titre+", "+id);
         writeTo(output,"Création de la Chanson : "+artiste+", "+titre+", "+id);
-        writeTo(output,"OK");
         Chanson crea_song = new Chanson(titre,artiste,duree,id,"MP3",genre1);
         System.out.println(ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+ANSI_RESET+ANSI_BLACK_BACKGROUND+ANSI_CYAN+crea_song.toString()+" !"+ANSI_RESET);
         writeTo(output,ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+ANSI_RESET+ANSI_BLACK_BACKGROUND+ANSI_CYAN+crea_song.toString()+" !"+ANSI_RESET);
-        writeTo(output,"OK");
         chansons.add(crea_song);
+        writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée "+ANSI_RESET+" ");
+        writeTo(output,"OK");
+        readFrom(input);
     }
 
 /**
 * Méthode qui ajoute un album à la liste des albums
 * Demande : titre, artiste, date, duree
- * @param
+ * @param output
+ * @param input
  * @return void
 */
-    public void ajoutAlbum(String artiste, String titre, int duree, Date date1,OutputStream output){
-        /*String artiste = null;
-        String titre = null;*/
+    public void ajoutAlbum(OutputStream output,InputStream input){
+        String artiste = null;
+        String titre = null;
         String id = null;
-        /*String date = null;
+        String date = null;
         Date date1 = null;
         int duree;
         boolean sortie = true;
         System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de l'artiste : "+ANSI_RESET+" ");
         writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de l'artiste : "+ANSI_RESET+" ");
+        writeTo(output,"OK");
         artiste = readFrom(input);
         if( artiste == null) artiste = readFrom(input);
         System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de l'album : "+ANSI_RESET+" ");
-        output.println(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de l'album : "+ANSI_RESET+" ");
+        writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de l'album : "+ANSI_RESET+" ");
+        writeTo(output,"OK");
         titre = readFrom(input);
-        if( titre == null) titre = readFrom(input);*/
+        if( titre == null) titre = readFrom(input);
         id = creaID(1);
-        /*do
+        do
         {
             System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la date de sortie de l'album : (avec le format : 'yyyy-MM-dd')"+ANSI_RESET+" ");
-            output.println(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la date de sortie de l'album : (avec le format : 'yyyy-MM-dd')"+ANSI_RESET+" ");
+            writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la date de sortie de l'album : (avec le format : 'yyyy-MM-dd')"+ANSI_RESET+" ");
+            writeTo(output,"OK");
             date = readFrom(input);
             if( date == null) date = readFrom(input);
             sortie = this.verifDate(date);
@@ -350,16 +354,20 @@ public class MusicHub implements socketServer
             date1 =  new SimpleDateFormat("yyyy-MM-dd").parse(date);
         } catch (Exception e) {
             System.out.println(ANSI_RED+"Date hasn't working out"+ANSI_RESET);
-            output.println(ANSI_RED+"Date hasn't working out"+ANSI_RESET);
+            writeTo(output,ANSI_RED+"Date hasn't working out"+ANSI_RESET);
         }
         System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la durée de l'album : "+ANSI_RESET+" ");
-        output.println(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la durée de l'album : "+ANSI_RESET+" ");
-        duree = Integer.parseInt(readFrom(input));*/
+        writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la durée de l'album : "+ANSI_RESET+" ");
+        writeTo(output,"OK");
+        duree = Integer.parseInt(readFrom(input));
         System.out.println("Création de l'album : "+artiste+", "+titre+", "+id);
         Album crea_album = new Album(titre,artiste,duree,date1,id);
         System.out.println(ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+ANSI_RESET+ANSI_BLACK_BACKGROUND+ANSI_CYAN+crea_album.toString()+" !"+ANSI_RESET);
         writeTo(output,ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+ANSI_RESET+ANSI_BLACK_BACKGROUND+ANSI_CYAN+crea_album.toString()+" !"+ANSI_RESET);
         albums.add(crea_album);
+        writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée "+ANSI_RESET+" ");
+        writeTo(output,"OK");
+        readFrom(input);
     }
     
 /**
@@ -369,10 +377,8 @@ public class MusicHub implements socketServer
     /*on affiche les chansons existantes et les albums existants*/
         System.out.println(ANSI_CYAN+"Les Chansons existantes :\n"+chansons.toString()+ANSI_RESET);
         writeTo(output,ANSI_CYAN+"Les Chansons existantes :\n"+chansons.toString()+ANSI_RESET);
-        writeTo(output,"OK");
         System.out.println(ANSI_CYAN+"Les Albums existants :\n"+albums.toString()+ANSI_RESET);
         writeTo(output,ANSI_CYAN+"Les Albums existants :\n"+albums.toString()+ANSI_RESET);
-        writeTo(output,"OK");
     /*choix de la chanson à ajouter à un album*/
         String nomchanson = null;
         String nomalbum = null;
@@ -394,6 +400,8 @@ public class MusicHub implements socketServer
         {
             int continu = 1;
             System.out.println(ANSI_RED+"Cette chanson n'existe pas. Voulez vous recommencer ? OUI(0) ou NON(1)"+ANSI_RESET+" ");
+            writeTo(output,ANSI_RED+"Cette chanson n'existe pas. Voulez vous recommencer ? OUI(0) ou NON(1)"+ANSI_RESET+" ");
+            writeTo(output,"OK");
             continu = Integer.parseInt(readFrom(input));
             while( continu == 0)
             {
@@ -435,7 +443,6 @@ public class MusicHub implements socketServer
             if( verif == -1){
                 System.out.println(ANSI_RED+"Cet album n'existe pas. Vérifiez l'ortographe et recommencez."+ANSI_RESET);
                 writeTo(output,ANSI_RED+"Cet album n'existe pas. Vérifiez l'ortographe et recommencez."+ANSI_RESET);
-                writeTo(output,"OK");
             }
         }
     /* split l'ID de l'album et isoler la partie album (1)*/
@@ -477,20 +484,20 @@ public class MusicHub implements socketServer
         auteur = readFrom(input);
         if( auteur == null) auteur = readFrom(input);
         System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de la chanson : "+ANSI_RESET+" ");
-        writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de la chanson : "+ANSI_RESET+" ");
+        writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom du livre : "+ANSI_RESET+" ");
         writeTo(output,"OK");
         titre = readFrom(input);
         if( titre == null) titre = scanner.nextLine();
         id = creaID(2);
         if( id == null) id = readFrom(input);
-        System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la durée de la chanson : "+ANSI_RESET+" ");
-        writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la durée de la chanson : "+ANSI_RESET+" ");
+        System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la durée du livre : "+ANSI_RESET+" ");
+        writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez la durée du livre : "+ANSI_RESET+" ");
         writeTo(output,"OK");
         duree = Integer.parseInt(readFrom(input));
         while( langue1 == null)
         {
             System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Choisissez la langue de la chanson : FRANCAIS(F), ANGLAIS(A), ITALIEN(I), ESPAGNOL(E), ALLEMAND(D)"+ANSI_RESET+" ");
-            writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Choisissez la langue de la chanson : FRANCAIS(F), ANGLAIS(A), ITALIEN(I), ESPAGNOL(E), ALLEMAND(D)"+ANSI_RESET+" ");
+            writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Choisissez la langue du livre : FRANCAIS(F), ANGLAIS(A), ITALIEN(I), ESPAGNOL(E), ALLEMAND(D)"+ANSI_RESET+" ");
             writeTo(output,"OK");
             langue = readFrom(input);
             switch(langue)
@@ -525,7 +532,7 @@ public class MusicHub implements socketServer
         while( categorie1 == null)
         {
             System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Choisissez le genre de la chanson : JEUNESSE(J), ROMAN(R), THEATRE(T), DISCOURS(S), DOCUMENTAIRE(D);"+ANSI_RESET+" ");
-            writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Choisissez le genre de la chanson : JEUNESSE(J), ROMAN(R), THEATRE(T), DISCOURS(S), DOCUMENTAIRE(D);"+ANSI_RESET+" ");
+            writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Choisissez le genre du livre : JEUNESSE(J), ROMAN(R), THEATRE(T), DISCOURS(S), DOCUMENTAIRE(D);"+ANSI_RESET+" ");
             writeTo(output,"OK");
             categorie = readFrom(input);
             switch(categorie)
@@ -559,24 +566,24 @@ public class MusicHub implements socketServer
         }
         System.out.println("Création du livre audio : "+auteur+", "+titre+", "+id);
         writeTo(output,"Création du livre audio : "+auteur+", "+titre+", "+id);
-        writeTo(output,"OK");
         LivreAudio crea_livre = new LivreAudio(titre,auteur,duree,id,"MP4",langue1,categorie1);
         System.out.println(ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+crea_livre.toString()+" !"+ANSI_RESET);
         writeTo(output,ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+crea_livre.toString()+" !"+ANSI_RESET);
-        writeTo(output,"OK");
         livres.add(crea_livre);
         System.out.println(livres.toString());
         writeTo(output,livres.toString());
+        writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée "+ANSI_RESET+" ");
         writeTo(output,"OK");
+        readFrom(input);
     }
-    
+
 /**
 * Méthode qui créer d'une playlist à partir de chansons existantes
 */
     public void ajoutPlaylist(OutputStream output, InputStream input){
         String name,idd;
         int ans,inde=-1,cptt=0;
-        affplaylist(output);
+        affplaylist(output, input);
         System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de la playlist à créer : "+ANSI_RESET+" ");
         writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de la playlist à créer : "+ANSI_RESET+" ");
         writeTo(output,"OK");
@@ -595,8 +602,8 @@ public class MusicHub implements socketServer
         	return;
         }
         System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Etes-vous sûr de vouloir créer la playlist : "+name+","+idd+"? "+ANSI_RESET);
-        writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Etes-vous sûr de vouloir créer la playlist : "+name+","+idd+"? "+ANSI_RESET);
         System.out.print("\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Tapez '0' pour oui et '1' pour non."+ANSI_RESET+" ");
+        writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Etes-vous sûr de vouloir créer la playlist : "+name+","+idd+"? "+ANSI_RESET);
         writeTo(output,"\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Tapez '0' pour oui et '1' pour non."+ANSI_RESET+" ");
         writeTo(output,"OK");
         ans = Integer.parseInt(readFrom(input));
@@ -609,19 +616,20 @@ public class MusicHub implements socketServer
         	int boucle = 0;
         	/* Affichage des chansons et livres audios existants*/
         	System.out.println(ANSI_CYAN+"Les Chansons existantes :\n"+chansons.toString());
-        	writeTo(output,ANSI_CYAN+"Les Chansons existantes :\n"+chansons.toString());
         	System.out.println("Les Livres-Audios existants :\n"+livres.toString()+ANSI_RESET);
-        	writeTo(output,"Les Livres-Audios existants :\n"+livres.toString()+ANSI_RESET);
         	System.out.println(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Veuillez choisir une chanson ou un livre à ajouter à votre playlist."+ANSI_RESET);
-        	writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Veuillez choisir une chanson ou un livre à ajouter à votre playlist."+ANSI_RESET);
         	System.out.println("\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Tapez 'C' pour ajouter une chanson et 'L' pour un livre"+ANSI_RESET);
-            writeTo(output,"\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Tapez 'C' pour ajouter une chanson et 'L' pour un livre"+ANSI_RESET);
             System.out.println("\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Pour arreter les ajouts, tapez 'S'"+ANSI_RESET+" ");
-            writeTo(output,"\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Pour arreter les ajouts, tapez 'S'"+ANSI_RESET+" ");
-            writeTo(output,"OK");
         	do{
+                writeTo(output,ANSI_CYAN+"Les Chansons existantes :\n"+chansons.toString());
+                writeTo(output,"Les Livres-Audios existants :\n"+livres.toString()+ANSI_RESET);
+                writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Veuillez choisir une chanson ou un livre à ajouter à votre playlist."+ANSI_RESET);
+                writeTo(output,"\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Tapez 'C' pour ajouter une chanson et 'L' pour un livre"+ANSI_RESET);
+                writeTo(output,"\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+" Pour arreter les ajouts, tapez 'S'"+ANSI_RESET+" ");
+                writeTo(output,"OK");
                 String choix;
                 choix = readFrom(input);
+                System.out.println("après read");
                 switch(choix)
                 {
                     case "C":
@@ -645,7 +653,6 @@ public class MusicHub implements socketServer
                         {
                             System.out.println(ANSI_RED+"Cette chanson n'existe pas."+ANSI_RESET);
                             writeTo(output,ANSI_RED+"Cette chanson n'existe pas."+ANSI_RESET);
-                            writeTo(output,"OK");
                             break;
                         }
                         Chanson chanson = chansons.get(index);
@@ -723,6 +730,9 @@ public class MusicHub implements socketServer
             writeTo(output,ANSI_CYAN+"Vous n'avez pas ajouté de playlist ! "+ANSI_RESET);
             break;
         }
+        writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée"+ANSI_RESET+" ");
+        writeTo(output,"OK");
+        name = readFrom(input);
     }
     
 /**
@@ -731,13 +741,13 @@ public class MusicHub implements socketServer
     public void suppressPlaylist(OutputStream output,InputStream input){
         String nom,id;
         int answer,index=-1,compt=0;
-        affplaylist(output);
+        affplaylist(output, input);
         System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de la playlist à supprimer : "+ANSI_RESET+" ");
         writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez le nom de la playlist à supprimer : "+ANSI_RESET+" ");
         writeTo(output,"OK");
         nom = readFrom(input);
         System.out.print(ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez l'ID de la playlist à supprimer : "+ANSI_RESET+" ");
-        writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez l'ID de la playlist à supprimer : "+ANSI_RESET+" ");
+        writeTo(output,ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Donnez l'ID de la playlist à supprimer (de la forme XXX-XXX-XXX): "+ANSI_RESET+" ");
         writeTo(output,"OK");
         id = readFrom(input);
         for(Playlist play : playlists){
@@ -757,68 +767,71 @@ public class MusicHub implements socketServer
         System.out.print("\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Tapez '0' pour oui et '1' pour non."+ANSI_RESET+" ");
         writeTo(output,"\t"+ANSI_PURPLE_BACKGROUND+ANSI_BLACK+"Tapez '0' pour oui et '1' pour non."+ANSI_RESET+" ");
         writeTo(output,"OK");
-        answer = scanner.nextInt();
+        answer = Integer.parseInt(readFrom(input));
         switch(answer)
         {
         	case 0 :
-        	String[] playid = id.split("-");
-        	for(Chanson supp : chansons ){
-        		String num = supp.getID();
-        		String[] buffer1 = num.split("-");
-        		if(buffer1[0].equals(playid[0])  == true){
-        			buffer1[0] = "000";
-        			StringBuffer buffer = new StringBuffer();
-        			int cpt=0;
-        			for(String a : buffer1){
-        				buffer = buffer.append(a);
-        				if(cpt!=2) buffer = buffer.append("-");
-        				cpt++;	
-        			}
-        			num = buffer.toString();
-        		}
-        		
-        	} 
-        	for(LivreAudio non : livres ){
-        		String num = non.getID();
-        		String[] buffer1 = num.split("-");
-        		if(buffer1[0].equals(playid[0])  == true){
-        			buffer1[0] = "000";
-        			StringBuffer buffer = new StringBuffer();
-        			int cpt=0;
-        			for(String a : buffer1){
-        				buffer = buffer.append(a);
-        				if(cpt!=2) buffer = buffer.append("-");
-        				cpt++;	
-        			}
-        			num = buffer.toString();
-        		}
-        	}
+        	    String[] playid = id.split("-");
+                for(Chanson supp : chansons ){
+                    String num = supp.getID();
+                    String[] buffer1 = num.split("-");
+                    if(buffer1[0].equals(playid[0])  == true){
+                        buffer1[0] = "000";
+                        StringBuffer buffer = new StringBuffer();
+                        int cpt=0;
+                        for(String a : buffer1){
+                            buffer = buffer.append(a);
+                            if(cpt!=2) buffer = buffer.append("-");
+                            cpt++;
+                        }
+                        num = buffer.toString();
+                    }
+
+                }
+                for(LivreAudio non : livres ){
+                    String num = non.getID();
+                    String[] buffer1 = num.split("-");
+                    if(buffer1[0].equals(playid[0])  == true){
+                        buffer1[0] = "000";
+                        StringBuffer buffer = new StringBuffer();
+                        int cpt=0;
+                        for(String a : buffer1){
+                            buffer = buffer.append(a);
+                            if(cpt!=2) buffer = buffer.append("-");
+                            cpt++;
+                        }
+                        num = buffer.toString();
+                    }
+                }
                 playlists.remove(index);
                 System.out.println(ANSI_CYAN+"Voici vos nouvelles playlists disponibles: "+playlists+ANSI_RESET);
                 writeTo(output,ANSI_CYAN+"Voici vos nouvelles playlists disponibles: "+playlists+ANSI_RESET);
-                writeTo(output,"OK");
                 break;
             
             	case 1:
                 System.out.println(ANSI_CYAN+"Vous n'avez rien supprimé ! "+ANSI_RESET);
                 writeTo(output,ANSI_CYAN+"Vous n'avez rien supprimé ! "+ANSI_RESET);
-                writeTo(output,"OK");
                 break;
         }
+        writeTo(output,"\t"+ANSI_BLUE+"Appuyez sur Entrée"+ANSI_RESET+" ");
+        writeTo(output,"OK");
+        id = readFrom(input);
         
     }
     
 /**
 * Méthode pour sauvegarder les playlists, les albums, les chansons, les livres audios actuellement dans le MusicHubs
 */
-    public void sauvegarde(OutputStream output){
+    public void sauvegarde(OutputStream output, InputStream input){
         FileXML ecriture = new FileXML();
         System.out.println("\t\t"+ANSI_CYAN+"Sauvegarde en cours ..."+ANSI_RESET);
         writeTo(output,"\t\t"+ANSI_CYAN+"Sauvegarde en cours ..."+ANSI_RESET);
-        writeTo(output,"OK");
         ecriture.writePlaylists(this.playlists);
         ecriture.writeAlbums(this.albums);
         ecriture.writeElements(this.chansons,this.livres);
+        writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée "+ANSI_RESET+" ");
+        writeTo(output,"OK");
+        readFrom(input);
     }
     
 //////////////////////////////////////////////////////////////////////////////////
@@ -828,17 +841,15 @@ public class MusicHub implements socketServer
 /**
 * Méthode qui affiche les chanson des albums
 */
-    public void affchanson_album(OutputStream output){
+    public void affchanson_album(OutputStream output, InputStream input){
         System.out.println("\t\t"+ANSI_CYAN +"Affichage en cours ..."+ANSI_RESET);
         writeTo(output,"\t\t"+ANSI_CYAN +"Affichage en cours ..."+ANSI_RESET);
-        writeTo(output,"OK");
         int i=1;
         for( Album ici : albums )
         {
             String num = ici.getAlbum();        //IDalbum de l'album
             System.out.println(ANSI_CYAN+"ALBUM "+i+": "+ici.toString()+ANSI_RESET);
             writeTo(output,ANSI_CYAN+"ALBUM "+i+": "+ici.toString()+ANSI_RESET);
-            writeTo(output,"OK");
         //on tri les chansons en fonction de leur album
             for(Chanson actuel : chansons)
             {
@@ -847,39 +858,43 @@ public class MusicHub implements socketServer
                 if( num.equals(numalbum)  == true){
                     System.out.println("\t"+ANSI_CYAN+"=> "+actuel.getArtiste()+" - "+actuel.getTitre()+ANSI_RESET);
                     writeTo(output,"\t"+ANSI_CYAN+"=> "+actuel.getArtiste()+" - "+actuel.getTitre()+ANSI_RESET);
-                    writeTo(output,"OK");
                 }
             }
-            writeTo(output,"OK");
             i++;
         }
+        writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée "+ANSI_RESET+" ");
         writeTo(output,"OK");
+        readFrom(input);
     }
 
 /**
 * Méthode qui affiche sur la console les titres des albums triés par date de sortie
 */
-    public void afftitre_date(OutputStream output){
+    public void afftitre_date(OutputStream output, InputStream input){
         Collections.sort(albums, new SortByDate());
         System.out.println(albums);
         writeTo(output,albums.toString());
+        writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée "+ANSI_RESET+" ");
         writeTo(output,"OK");
+        readFrom(input);
     }
 
 /**
 * Méthode qui affiche sur la console les titres des chansons triés par genre
 */
-    public void afftitre_genre(OutputStream output){
+    public void afftitre_genre(OutputStream output, InputStream input){
         Collections.sort(chansons, new SortByGenre());
         System.out.println(chansons);
         writeTo(output,chansons.toString());
+        writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée "+ANSI_RESET+" ");
         writeTo(output,"OK");
+        readFrom(input);
     }
 
 /**
 * Méthode qui affiche sur la console les playlists
 */
-    public void affplaylist(OutputStream output){
+    public void affplaylist(OutputStream output, InputStream input){
         System.out.println("\t\tAffichage en cours ...");
         writeTo(output,"\t\tAffichage en cours ...");
         for( Playlist ici : playlists )
@@ -908,16 +923,21 @@ public class MusicHub implements socketServer
                 }
             }
         }
+        writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée "+ANSI_RESET+" ");
+        writeTo(output,"OK");
+        readFrom(input);
     }
 
 /**
 * Méthode qui affiche sur la console les livres audios triés par auteur
 */
-    public void afflivre_auteur(OutputStream output){
+    public void afflivre_auteur(OutputStream output, InputStream input){
         Collections.sort(livres, new SortByAuthor());
         System.out.println(livres);
         writeTo(output,livres.toString());
+        writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée "+ANSI_RESET+" ");
         writeTo(output,"OK");
+        readFrom(input);
     }
     
 /**
@@ -937,23 +957,23 @@ public class MusicHub implements socketServer
         System.out.println(ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tVérification (v) : Affiche les vérifications de récupération des fichiers. "+ANSI_RESET);
         System.out.println(ANSI_GREEN_BACKGROUND+ANSI_BLACK+"Pour sortir de l'aide tappez 'z'. "+ANSI_RESET);
         System.out.println(ANSI_BLUE+"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+ANSI_RESET);
-        writeTo(output,"\n");
-        writeTo(output,ANSI_BLUE+"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        writeTo(output,"++++++++++++++++++++++++    Menu d'aide aux commandes du MusicHub      +++++++++++++++++++++++"+ANSI_RESET);
-        writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"Veuillez entrer le caractère dont vous voulez connaitre l'aide: "+ANSI_RESET);
-        writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tRajout : Chanson (c) ; Album (a) ; Chanson à un Album (+) Livre-Audio (l). "+ANSI_RESET);
-        writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tCréation : Playlist à partir element existant(p).                          "+ANSI_RESET);
-        writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tSuppression : Playlist (-).                                                "+ANSI_RESET);
-        writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tSauvegarde : Nouveaux elements pour utilisation ultérieure (s).            "+ANSI_RESET);
-        writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tAide : Commandes (h) ; Options (o) ; Quitter (q).                          "+ANSI_RESET);
-        writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tVérification (v) : Affiche les vérifications de récupération des fichiers. "+ANSI_RESET);
-        writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"Pour sortir de l'aide tappez 'z'. "+ANSI_RESET);
-        writeTo(output,ANSI_BLUE+"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+ANSI_RESET);
-        writeTo(output,"OK");
         String menu;
         int fin = 1;
         while( fin == 1)
         {
+            writeTo(output,"\n");
+            writeTo(output,ANSI_BLUE+"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            writeTo(output,"++++++++++++++++++++++++    Menu d'aide aux commandes du MusicHub      +++++++++++++++++++++++"+ANSI_RESET);
+            writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"Veuillez entrer le caractère dont vous voulez connaitre l'aide: "+ANSI_RESET);
+            writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tRajout : Chanson (c) ; Album (a) ; Chanson à un Album (+) Livre-Audio (l). "+ANSI_RESET);
+            writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tCréation : Playlist à partir element existant(p).                          "+ANSI_RESET);
+            writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tSuppression : Playlist (-).                                                "+ANSI_RESET);
+            writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tSauvegarde : Nouveaux elements pour utilisation ultérieure (s).            "+ANSI_RESET);
+            writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tAide : Commandes (h) ; Options (o) ; Quitter (q).                          "+ANSI_RESET);
+            writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"\tVérification (v) : Affiche les vérifications de récupération des fichiers. "+ANSI_RESET);
+            writeTo(output,ANSI_GREEN_BACKGROUND+ANSI_BLACK+"Pour sortir de l'aide tappez 'z'. "+ANSI_RESET);
+            writeTo(output,ANSI_BLUE+"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+ANSI_RESET);
+            writeTo(output,"OK");
             menu = readFrom(input);
             
             switch(menu)
@@ -1040,8 +1060,9 @@ public class MusicHub implements socketServer
                     writeTo(output,ANSI_RED+"Saisie incorrecte. Veuillez choisir une option proposée"+ANSI_RESET);
                     break;
             }
+            writeTo(output,ANSI_BLUE+"\t(Appuyez sur Entrée)"+ANSI_RESET);
             writeTo(output,"OK");
-        
+            menu = readFrom(input);
         }
         
     }
