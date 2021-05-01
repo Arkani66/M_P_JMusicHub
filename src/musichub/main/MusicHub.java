@@ -14,7 +14,7 @@ import java.util.Calendar;
 /**
  * Cette classe effectue toutes les actions disponibles sur la console du MusicHub
  * 
- * @version 1.0
+ * @version 2.0
  *
  * @see MusicHubConsole
  * @author PROSPA Florence et MICONNET Sandrine
@@ -32,23 +32,16 @@ public class MusicHub implements socketServer
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-    
-    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    //Constructeur
+    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+
+    /**
+     * Constructeur du MusicHub
+     */
     public MusicHub(){
         
         this.albums = new LinkedList<Album>();
@@ -131,7 +124,7 @@ public class MusicHub implements socketServer
 *                  pour un album, nous devons uniquement créer et vérifier les trois chiffres de la deuxième partie
 *                  pour un élément, nous devons uniquement créer et vérifier les trois chiffres de la dernière partie
 * @param cas quel est le type de l'ID à créer
-* @return 
+* @return String
 */
     public String creaID(int cas)
     {
@@ -205,7 +198,7 @@ public class MusicHub implements socketServer
 * (NOTE : ne marche pas pour l'instant)
 * @see public void ajoutAlbum()
 * @param date_a_verif
-* @return retour true si la date est valide, false si la date n'est pas valide
+* @return boolean true si la date est valide, false si la date n'est pas valide
 */
     public boolean verifDate(String date_a_verif){      
         String[] parties = date_a_verif.split("-",3);
@@ -241,9 +234,11 @@ public class MusicHub implements socketServer
 
 /**
 * Méthode qui ajoute une chanson à la liste de chansons
-* Demande : titre, artiste, genre, duree
+* @param output
+ * @param input
+ * @return void
 */
-    public void ajoutChansons(OutputStream output, InputStream input/*String artiste, String titre, Genre genre1, int duree*/){
+    public void ajoutChansons(OutputStream output, InputStream input){
         String artiste = null;
         String titre = null;
         String genre = null;
@@ -372,6 +367,9 @@ public class MusicHub implements socketServer
     
 /**
 * Méthode qui ajoute une chanson à la liste des chansons et à un album
+ * @param output
+ * @param input
+ * @return void
 */
     public void ajoutChansonAlbum(OutputStream output, InputStream input){
     /*on affiche les chansons existantes et les albums existants*/
@@ -467,11 +465,13 @@ public class MusicHub implements socketServer
     
 /**
 * Méthode qui ajoute un livre à la liste des livres audios
+ * @param output
+ * @param input
+ * @return void
 */
     public void ajoutLivreAudio(OutputStream output, InputStream input){
         String auteur = null;
         String titre = null;
-        String genre = null;
         String id = null;
         String langue = null;
         String categorie = null;
@@ -570,7 +570,7 @@ public class MusicHub implements socketServer
         System.out.println(ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+crea_livre.toString()+" !"+ANSI_RESET);
         writeTo(output,ANSI_BLACK_BACKGROUND+ANSI_CYAN+" Vérification, vous avez créé = "+crea_livre.toString()+" !"+ANSI_RESET);
         livres.add(crea_livre);
-        System.out.println(livres.toString());
+        System.out.println(livres);
         writeTo(output,livres.toString());
         writeTo(output,ANSI_BLUE+"\t Appuyez sur Entrée "+ANSI_RESET+" ");
         writeTo(output,"OK");
@@ -579,6 +579,9 @@ public class MusicHub implements socketServer
 
 /**
 * Méthode qui créer d'une playlist à partir de chansons existantes
+ * @param output
+ * @param input
+ * @return void
 */
     public void ajoutPlaylist(OutputStream output, InputStream input){
         String name,idd;
@@ -737,6 +740,9 @@ public class MusicHub implements socketServer
     
 /**
 * Méthode qui supprime une playlist choisie
+ * @param output
+ * @param input
+ * @return void
 */
     public void suppressPlaylist(OutputStream output,InputStream input){
         String nom,id;
@@ -821,6 +827,9 @@ public class MusicHub implements socketServer
     
 /**
 * Méthode pour sauvegarder les playlists, les albums, les chansons, les livres audios actuellement dans le MusicHubs
+ * @param output
+ * @param input
+ * @return void
 */
     public void sauvegarde(OutputStream output, InputStream input){
         FileXML ecriture = new FileXML();
@@ -840,6 +849,9 @@ public class MusicHub implements socketServer
 
 /**
 * Méthode qui affiche les chanson des albums
+ * @param output
+ * @param input
+ * @return void
 */
     public void affchanson_album(OutputStream output, InputStream input){
         System.out.println("\t\t"+ANSI_CYAN +"Affichage en cours ..."+ANSI_RESET);
@@ -869,6 +881,9 @@ public class MusicHub implements socketServer
 
 /**
 * Méthode qui affiche sur la console les titres des albums triés par date de sortie
+ * @param output
+ * @param input
+ * @return void
 */
     public void afftitre_date(OutputStream output, InputStream input){
         Collections.sort(albums, new SortByDate());
@@ -881,6 +896,9 @@ public class MusicHub implements socketServer
 
 /**
 * Méthode qui affiche sur la console les titres des chansons triés par genre
+ * @param output
+ * @param input
+ * @return void
 */
     public void afftitre_genre(OutputStream output, InputStream input){
         Collections.sort(chansons, new SortByGenre());
@@ -893,6 +911,9 @@ public class MusicHub implements socketServer
 
 /**
 * Méthode qui affiche sur la console les playlists
+ * @param output
+ * @param input
+ * @return void
 */
     public void affplaylist(OutputStream output, InputStream input){
         System.out.println("\t\tAffichage en cours ...");
@@ -930,6 +951,9 @@ public class MusicHub implements socketServer
 
 /**
 * Méthode qui affiche sur la console les livres audios triés par auteur
+ * @param output
+ * @param input
+ * @return void
 */
     public void afflivre_auteur(OutputStream output, InputStream input){
         Collections.sort(livres, new SortByAuthor());
@@ -942,6 +966,9 @@ public class MusicHub implements socketServer
     
 /**
 * Méthode qui affiche sur la console les détails des commandes
+ * @param output
+ * @param input
+ * @return void
 */
     public void aideCommande(OutputStream output, InputStream input){
         
@@ -1067,12 +1094,25 @@ public class MusicHub implements socketServer
         
     }
 
+    /**
+     * Méthode qui affiche sur la sortie output donnée en paramètre un string s
+     * @see socketServer
+     * @param output
+     * @param s
+     * @return void
+     */
     @Override
     public void writeTo(OutputStream output, String s) {
         PrintWriter writer = new PrintWriter(output, true);
         writer.println(s);
     }
 
+    /**
+     * Méthode qui lit depuis l'entrée input une chaine de caractère et la renvoie
+     * @see socketServer
+     * @param input
+     * @return String
+     */
     @Override
     public String readFrom(InputStream input) {
         String textread = null;

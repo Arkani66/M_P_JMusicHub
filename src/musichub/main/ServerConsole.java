@@ -9,8 +9,59 @@ import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Cette classe effectue toutes les actions disponibles sur la console du MusicHub
+ *
+ * @version 2.0
+ *
+ * @see MusicHubConsole
+ * @author PROSPA Florence, MICONNET Sandrine, LEOPOLD Arnaud et CHIDIAC Bryan
+ */
+
 public class ServerConsole implements socketServer {
 
+    /**
+     * Constructeur de la classe : créer le socket server
+     */
+    public ServerConsole(){
+        System.out.println("Waiting to create Server...");
+        String ip = "localhost";
+        Socket socket;
+        InputStream input;
+        OutputStream output;
+        String text = "null";
+        try {
+            ServerSocket ss = new ServerSocket(6666);
+            System.out.println("Server waiting for connection...");
+            socket = ss.accept();//établit la connexion
+            System.out.println("Connected as " + ip);
+            input = socket.getInputStream();
+            output = socket.getOutputStream();
+
+            MusicHub hub = new MusicHub();
+            Recuperation(hub);
+
+            while( !(text.equals("quitter")) ){
+                text = readFrom(input);
+                System.out.println("text ="+text);
+                System.out.println("Client ask :"+text);
+                System.out.println("2 text ="+text);
+                text = ChoixClient(hub,output,input,text);
+            }
+            output.close();
+            input.close();
+            socket.close();
+        }catch (IOException ioe) {
+            System.out.println(ioe.getMessage());
+        }
+    }
+
+    /**
+     * Méthode qui récupère et affiche les albums, playlists et éléments
+     * depuis les fichiers XML
+     * @param hub
+     * @return void
+     */
     public void Recuperation(MusicHub hub){
         try
         {
@@ -28,35 +79,22 @@ public class ServerConsole implements socketServer {
         }
     }
 
-    public void AffichageMenu(OutputStream output){
-        writeTo(output,"\t\t"+" ---------------MENU------------------- ");
-        writeTo(output,"\t\t"+"                                        ");
-        writeTo(output,"Si vous voulez : .... =>tappez ...");
-        writeTo(output,"Rajout d'une nouvelle chanson                                           => c ");
-        writeTo(output,"Rajout d'un nouvel album                                                => a ");
-        writeTo(output,"Rajout d'une chanson existante à un album                               => + ");
-        writeTo(output,"Rajout d'un nouveau livre audio                                         => l ");
-        writeTo(output,"Création d'une nouvelle playlist à partir de chanson existante          => p ");
-        writeTo(output,"Suppression d'une playlist                                              => - ");
-        writeTo(output,"Sauvegarde des playlists, des albums, des chansons, des livres audios   => s ");
-        writeTo(output,"Aide avec les détails des commandes précédentes                         => h ");
-        writeTo(output,"\t\tQuitter le jMusicHub ==> quitter");
-        writeTo(output,"\t\t"+" --------------------------------------- ");
-
-    }
-
+    /**
+     * Méthode qui contient le menu proposant les choix de fonctionnalité
+     * en fonction de la réponse envoyé par le client, le server va appeler
+     * les fonctions correspondantes de la classe MusicHub
+     * @see MusicHub
+     * @param hub
+     * @param output
+     * @param input
+     * @param reponse
+     * @return String
+     */
     public String ChoixClient(MusicHub hub, OutputStream output, InputStream input, String reponse){
         String retour = "null";
         String serverrespond = "Server respond : ";
         String serverask = "Server ask : ";
         boolean fin = false;
-        String artiste = null;
-        String titre = null;
-        String genre = null;
-        Genre genre1=null;
-        int duree;
-        String date = null;
-        Date date1 = null;
 
         switch(reponse)
         {
@@ -153,100 +191,30 @@ public class ServerConsole implements socketServer {
         return retour;
     }
 
-    public ServerConsole(){
-        System.out.println("Waiting to create Server...");
-        String ip = "localhost";
-        Socket socket;
-        InputStream input;
-        OutputStream output;
-        String text = "null";
-        try {
-            ServerSocket ss = new ServerSocket(6666);
-            System.out.println("Server waiting for connection...");
-            socket = ss.accept();//établit la connexion
-            System.out.println("Connected as " + ip);
-            input = socket.getInputStream();
-            output = socket.getOutputStream();
-
-            PrintWriter writer = new PrintWriter(output, true);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            String serverresponse;
-
-            MusicHub hub = new MusicHub();
-            Recuperation(hub);
-            String s = "Server respond : ";
-
-            while( !(text.equals("quitter")) ){
-                text = readFrom(input);
-                System.out.println("text ="+text);
-                System.out.println("Client ask :"+text);
-                System.out.println("2 text ="+text);
-                text = ChoixClient(hub,output,input,text);
-            }
-            output.close();
-            input.close();
-            socket.close();
-        }catch (IOException ioe) {
-            System.out.println(ioe.getMessage());
-        }
-    }
-
     public static void main( String[] args)
     {
         ServerConsole serverConsole = new ServerConsole();
-        /*int port = 6666;
-        ServerSocket mserverSocket;
-        Socket socket;
-        String texte= "null";
-        BufferedReader entree;
-        PrintStream sortie;
-        int i =0;
-
-        try{
-            mserverSocket = new ServerSocket(port);
-            System.out.println("Server waiting for connection...");
-            socket = mserverSocket.accept();//établit la connexion
-            entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            sortie = new PrintStream(socket.getOutputStream());
-            while(true){
-                socket = mserverSocket.accept();//établit la connexion
-                if(i==0) System.out.println("Connected as " + ip);
-                i = 1;
-                if( (texte = entree.readLine()).compareTo("coucou") == 0 ) sortie.println("coucou");
-            }
-        }catch (IOException ioe){
-            System.out.println(ioe.getMessage());
-        }*/
-
-        /*Socket socket = new Socket();
-        try {
-            ServerSocket ss = new ServerSocket(port);
-            System.out.println("Server waiting for connection...");
-             socket = ss.accept();//établit la connexion
-            System.out.println("Connected as " + ip);
-        }catch (IOException ioe) {
-            System.out.println(ioe.getMessage());
-        }*/
-        /*Server server = new Server();
-        server.writeTo("coucou");
-
-
-
-        String fin = "quitter";
-        while( server.readFrom().compareTo(fin) == 0 true)
-        {
-            server.readFrom();
-        }*/
-
     }
 
+    /**
+     * Méthode qui affiche sur la sortie output donnée en paramètre un string s
+     * @see socketServer
+     * @param output
+     * @param s
+     * @return void
+     */
     @Override
     public void writeTo(OutputStream output,String s) {
         PrintWriter writer = new PrintWriter(output, true);
         writer.println(s);
-        //writer.flush();
     }
 
+    /**
+     * Méthode qui lit depuis l'entrée input une chaine de caractère et la renvoie
+     * @see socketServer
+     * @param input
+     * @return String
+     */
     @Override
     public String readFrom(InputStream input) {
         String textread = null;
