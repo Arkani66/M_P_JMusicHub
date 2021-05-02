@@ -1,0 +1,26 @@
+Bienvenue sur le ReadMe de notre projet de MusicHub !
+
+Sur cette branche se trouve la version LINUX du projet 
+ 
+Pour compiler avec Maven : $ mvn compile
+Pour compiler et lancer les tests unitaires: $mvn verify
+
+/!\/!\  ATTENTION /!\/!\
+Si vous avez une erreur de type : "JAVA_HOME PATH not correctly define"
+Vous devez définir ou redefinir la variable d'envirronnement globale !
+Sur LINUX vous pouvez faire comme suit :
+
+D'abord vous devez localiser le dossier contenant le /bin de java, en faisant : find /usr/share/java* puis vous identifier le premier PATH
+
+Ensuit vous devez faire de même pour Maven, de la même manière que précédemment ou en tapant mvn --version 
+
+Puis vous devez taper la commande suivante dans un terminal, en remplaçant le chemin présent par le votre
+echo 'export M2_HOME=/opt/apache-maven-3.5.4' >> ~/.bashrc
+
+ensuite on doit lier la variable M2_HOME avec le chemin qu'on a trouvé avec la commande suivante
+echo 'export PATH=${M2_HOME}/bin:${PATH}' >> ~/.bashrc
+
+On fait de même avec Java et JAVA_HOME
+echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle' >> ~/.bashrc
+
+ensuite vous réouvrez votre terminal et vous pouvez vérifier si ça a marché en tapant la commande mvn -v/mvn --version
