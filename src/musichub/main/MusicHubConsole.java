@@ -17,12 +17,6 @@ import java.util.Scanner;
 
  public class MusicHubConsole
 {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     /**
      * Constructeur de la classe : créer le socket client
@@ -40,7 +34,7 @@ import java.util.Scanner;
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println(ANSI_WHITE_BACKGROUND+ANSI_BLUE+"\n\n\t\tBienvenue sur le jMusicHub\n"+ANSI_RESET);
+            System.out.println("\n\n\t\tBienvenue sur le jMusicHub\n");
 
             String question = "null";
             String reponseC= "null";
@@ -58,19 +52,19 @@ import java.util.Scanner;
                 writer.println(question);
                 writer.flush();
                 while( true ){
-                    System.out.println(ANSI_BLUE+"line = "+line+ANSI_RESET);
+                    System.out.println("line = "+line);
                     while((line = reader.readLine()).compareTo("OK") != 0 ){
                         System.out.println(line);
                         if( line.equals("fin")) break;
                     }
                     if( line.equals("fin")) break;
-                    System.out.println(ANSI_BLUE+"avant scanner"+ANSI_RESET);
+                    System.out.println("avant scanner");
                     question = scanner.nextLine();
                     writer.println(question);
                     writer.flush();
-                    System.out.println(ANSI_BLUE+"après write"+ANSI_RESET);
+                    System.out.println("après write");
                 }
-                System.out.println(ANSI_BLUE+"fin boucle"+ANSI_RESET);
+                System.out.println("fin boucle");
             }
             writer.println("quitter");
             input.close();//clôt le InputStream
@@ -100,10 +94,10 @@ import java.util.Scanner;
      * @return void
      */
     public void AffichageMenu(){
-        System.out.println("\n\n\t\t"+ANSI_WHITE_BACKGROUND+ANSI_BLUE+"                                        "+ANSI_RESET);
-        System.out.println("\t\t"+ANSI_WHITE_BACKGROUND+ANSI_BLUE+" ---------------MENU------------------- "+ANSI_RESET);
-        System.out.println("\t\t"+ANSI_WHITE_BACKGROUND+ANSI_BLUE+"                                        "+ANSI_RESET);
-        System.out.println(ANSI_GREEN+"Si vous voulez : .... =>tappez ...");
+        System.out.println("\n\n\t\t"+"                                        ");
+        System.out.println("\t\t"+" ---------------MENU------------------- ");
+        System.out.println("\t\t"+"                                        ");
+        System.out.println("Si vous voulez : .... =>tappez ...");
         System.out.println("Rajout d'une nouvelle chanson                                           => c ");
         System.out.println("Rajout d'un nouvel album                                                => a ");
         System.out.println("Rajout d'une chanson existante à un album                               => + ");
@@ -112,8 +106,8 @@ import java.util.Scanner;
         System.out.println("Suppression d'une playlist                                              => - ");
         System.out.println("Sauvegarde des playlists, des albums, des chansons, des livres audios   => s ");
         System.out.println("Aide avec les détails des commandes précédentes                         => h ");
-        System.out.println("\t\tQuitter le jMusicHub ==> quitter"+ANSI_RESET);
-        System.out.println("\t\t"+ANSI_WHITE_BACKGROUND+ANSI_BLUE+" --------------------------------------- "+ANSI_RESET);
+        System.out.println("\t\tQuitter le jMusicHub ==> quitter");
+        System.out.println("\t\t"+" --------------------------------------- ");
 
     }
 
@@ -128,37 +122,37 @@ import java.util.Scanner;
         switch(reponse)
         {
             case "c":
-                System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'une nouvelle chanson "+ANSI_RESET);
+                System.out.println("Vous avez choisi => Rajout d'une nouvelle chanson ");
                 retour = "c";
                 break;
 
             case "a":
-                System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'un nouvel album "+ANSI_RESET);
+                System.out.println("Vous avez choisi => Rajout d'un nouvel album ");
                 retour = "a";
                 break;
 
             case "+":
-                System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'une chanson existante à un album "+ANSI_RESET);
+                System.out.println("Vous avez choisi => Rajout d'une chanson existante à un album ");
                 retour = "+";
                 break;
 
             case "l":
-                System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'un nouveau livre audio "+ANSI_RESET);
+                System.out.println("Vous avez choisi => Rajout d'un nouveau livre audio ");
                 retour = "l";
                 break;
 
             case "p":
-                System.out.println(ANSI_PURPLE+"Vous avez choisi => Création d'une nouvelle playlist à partir de chanson existante "+ANSI_RESET);
+                System.out.println("Vous avez choisi => Création d'une nouvelle playlist à partir de chanson existante ");
                 retour = "p";
                 break;
 
             case "-":
-                System.out.println(ANSI_PURPLE+"Vous avez choisi => Suppression d'une playlist "+ANSI_RESET);
+                System.out.println("Vous avez choisi => Suppression d'une playlist ");
                 retour = "-";
                 break;
 
             case "s":
-                System.out.println(ANSI_PURPLE+"Vous avez choisi => Sauvegarde des playlists, des albums, des chansons, des livres audios"+ANSI_RESET);
+                System.out.println("Vous avez choisi => Sauvegarde des playlists, des albums, des chansons, des livres audios");
                 retour = "s";
                 break;
 
@@ -174,7 +168,7 @@ import java.util.Scanner;
                 retour = "quitter";
                 break;
             default :
-                System.out.println(ANSI_RED+"Saisie incorrecte. Veuillez choisir une option proposée"+ANSI_RESET);
+                System.out.println("Saisie incorrecte. Veuillez choisir une option proposée");
                 break;
         }
         return retour;
