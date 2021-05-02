@@ -52,7 +52,7 @@ public class MusicHub implements socketServer
     public void recupPlaylists() throws EmptyFichException{
         FileXML recup = new FileXML();
         playlists = recup.readPlaylists(playlists);
-        if (playlists.isEmpty()) throw new EmptyFichException ("Le fichier 'playlists.xml' demandé est vide.");
+        if (playlists.isEmpty()) throw new EmptyFichException ("Le fichier 'playlists.xml' demande est vide.");
     }
 
 /**
@@ -63,8 +63,8 @@ public class MusicHub implements socketServer
         FileXML recup = new FileXML();
         chansons = recup.readElementsChansons(chansons);
         livres = recup.readElementsLivres(livres);
-        if (chansons.isEmpty()) throw new EmptyFichException ("Le fichier 'elements.xml' demandé est vide pour les chansons.");
-        if (livres.isEmpty()) throw new EmptyFichException ("Le fichier 'elements.xml' demandé est vide pour les livres audio.");
+        if (chansons.isEmpty()) throw new EmptyFichException ("Le fichier 'elements.xml' demande est vide pour les chansons.");
+        if (livres.isEmpty()) throw new EmptyFichException ("Le fichier 'elements.xml' demande est vide pour les livres audio.");
         System.out.println("\t ->Fini");
     }
 
@@ -75,7 +75,7 @@ public class MusicHub implements socketServer
     public void recupAlbums() throws EmptyFichException{
         FileXML recup = new FileXML();
         albums = recup.readAlbums(albums);
-        if (albums.isEmpty()) throw new EmptyFichException ("Le fichier 'albums.xml' demandé est vide.");
+        if (albums.isEmpty()) throw new EmptyFichException ("Le fichier 'albums.xml' demande est vide.");
     }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -285,17 +285,17 @@ public class MusicHub implements socketServer
                     break;
             }
         }
-        System.out.print("Donnez la durée de la chanson en secondes (Attention uniquement un nombre est attendu): "+" ");
-        writeTo(output,"Donnez la durée de la chanson en secondes (Attention uniquement un nombre est attendu): "+" ");
+        System.out.print("Donnez la duree de la chanson en secondes (Attention uniquement un nombre est attendu): "+" ");
+        writeTo(output,"Donnez la duree de la chanson en secondes (Attention uniquement un nombre est attendu): "+" ");
         writeTo(output,"OK");
         duree = Integer.parseInt(readFrom(input));
-        System.out.println("Création de la Chanson : "+artiste+", "+titre+", "+id);
-        writeTo(output,"Création de la Chanson : "+artiste+", "+titre+", "+id);
+        System.out.println("Creation de la Chanson : "+artiste+", "+titre+", "+id);
+        writeTo(output,"Creation de la Chanson : "+artiste+", "+titre+", "+id);
         Chanson crea_song = new Chanson(titre,artiste,duree,id,"MP3",genre1);
-        System.out.println(" Vérification, vous avez créé = "+crea_song.toString()+" !");
-        writeTo(output," Vérification, vous avez créé = "+crea_song.toString()+" !");
+        System.out.println(" Verification, vous avez cree = "+crea_song.toString()+" !");
+        writeTo(output," Verification, vous avez cree = "+crea_song.toString()+" !");
         chansons.add(crea_song);
-        writeTo(output,"\t Appuyez sur Entrée "+" ");
+        writeTo(output,"\t Appuyez sur Entree "+" ");
         writeTo(output,"OK");
         readFrom(input);
     }
@@ -341,22 +341,22 @@ public class MusicHub implements socketServer
             System.out.println("Date hasn't working out");
             writeTo(output,"Date hasn't working out");
         }
-        System.out.print("Donnez la durée de l'album : "+" ");
-        writeTo(output,"Donnez la durée de l'album : "+" ");
+        System.out.print("Donnez la duree de l'album : "+" ");
+        writeTo(output,"Donnez la duree de l'album : "+" ");
         writeTo(output,"OK");
         duree = Integer.parseInt(readFrom(input));
-        System.out.println("Création de l'album : "+artiste+", "+titre+", "+id);
+        System.out.println("Creation de l'album : "+artiste+", "+titre+", "+id);
         Album crea_album = new Album(titre,artiste,duree,date1,id);
-        System.out.println(" Vérification, vous avez créé = "+crea_album.toString()+" !");
-        writeTo(output," Vérification, vous avez créé = "+crea_album.toString()+" !");
+        System.out.println(" Verification, vous avez cree = "+crea_album.toString()+" !");
+        writeTo(output," Verification, vous avez cree = "+crea_album.toString()+" !");
         albums.add(crea_album);
-        writeTo(output,"\t Appuyez sur Entrée "+" ");
+        writeTo(output,"\t Appuyez sur Entree "+" ");
         writeTo(output,"OK");
         readFrom(input);
     }
     
 /**
-* Méthode qui ajoute une chanson à la liste des chansons et à un album
+* Methode qui ajoute une chanson à la liste des chansons et à un album
  * @param output
  * @param input
  * @return void
@@ -371,12 +371,12 @@ public class MusicHub implements socketServer
         String nomchanson = null;
         String nomalbum = null;
         int index = -1,verif=-1,cmpt = 0;
-        System.out.print("\n"+"Donnez le titre de la chanson à déplacer: "+" ");
-        writeTo(output,"\n"+"Donnez le titre de la chanson à déplacer: "+" ");
+        System.out.print("\n"+"Donnez le titre de la chanson a deplacer: "+" ");
+        writeTo(output,"\n"+"Donnez le titre de la chanson a deplacer: "+" ");
         writeTo(output,"OK");
         nomchanson = readFrom(input);
         if( nomchanson == null) readFrom(input);
-    /*recherche de la chanson dans la liste chansons : /!\ si elle n'est pas trouvé demander de vérifier l'ortographe et de réécrire */
+    /*recherche de la chanson dans la liste chansons : /!\ si elle n'est pas trouve demander de vérifier l'ortographe et de réécrire */
         for(Chanson courant : chansons){
             if(nomchanson.equals(courant.getTitre())==true) 
             {
@@ -393,8 +393,8 @@ public class MusicHub implements socketServer
             continu = Integer.parseInt(readFrom(input));
             while( continu == 0)
             {
-                System.out.print("Donnez le titre de la chanson à déplacer: "+" ");
-                writeTo(output,"Donnez le titre de la chanson à déplacer: "+" ");
+                System.out.print("Donnez le titre de la chanson a deplacer: "+" ");
+                writeTo(output,"Donnez le titre de la chanson a deplacer: "+" ");
                 writeTo(output,"OK");
                 nomchanson = readFrom(input);
                 cmpt = 0;
@@ -429,8 +429,8 @@ public class MusicHub implements socketServer
                 cmpt++; 
             }
             if( verif == -1){
-                System.out.println("Cet album n'existe pas. Vérifiez l'ortographe et recommencez.");
-                writeTo(output,"Cet album n'existe pas. Vérifiez l'ortographe et recommencez.");
+                System.out.println("Cet album n'existe pas. Verifiez l'ortographe et recommencez.");
+                writeTo(output,"Cet album n'existe pas. Verifiez l'ortographe et recommencez.");
             }
         }
     /* split l'ID de l'album et isoler la partie album (1)*/
@@ -480,8 +480,8 @@ public class MusicHub implements socketServer
         if( titre == null) titre = scanner.nextLine();
         id = creaID(2);
         if( id == null) id = readFrom(input);
-        System.out.print("Donnez la durée du livre : "+" ");
-        writeTo(output,"Donnez la durée du livre : "+" ");
+        System.out.print("Donnez la duree du livre : "+" ");
+        writeTo(output,"Donnez la duree du livre : "+" ");
         writeTo(output,"OK");
         duree = Integer.parseInt(readFrom(input));
         while( langue1 == null)
@@ -548,21 +548,21 @@ public class MusicHub implements socketServer
                     break;
 
                 default :
-                    System.out.println("Veuillez choisir une catégorie existante !");
-                    writeTo(output,"Veuillez choisir une catégorie existante !");
+                    System.out.println("Veuillez choisir une categorie existante !");
+                    writeTo(output,"Veuillez choisir une categorie existante !");
                     writeTo(output,"OK");
                     break;
             }
         }
-        System.out.println("Création du livre audio : "+auteur+", "+titre+", "+id);
-        writeTo(output,"Création du livre audio : "+auteur+", "+titre+", "+id);
+        System.out.println("Creation du livre audio : "+auteur+", "+titre+", "+id);
+        writeTo(output,"Creation du livre audio : "+auteur+", "+titre+", "+id);
         LivreAudio crea_livre = new LivreAudio(titre,auteur,duree,id,"MP4",langue1,categorie1);
-        System.out.println(" Vérification, vous avez créé = "+crea_livre.toString()+" !");
-        writeTo(output," Vérification, vous avez créé = "+crea_livre.toString()+" !");
+        System.out.println(" Verification, vous avez cree = "+crea_livre.toString()+" !");
+        writeTo(output," Verification, vous avez cree = "+crea_livre.toString()+" !");
         livres.add(crea_livre);
         System.out.println(livres);
         writeTo(output,livres.toString());
-        writeTo(output,"\t Appuyez sur Entrée "+" ");
+        writeTo(output,"\t Appuyez sur Entree "+" ");
         writeTo(output,"OK");
         readFrom(input);
     }
@@ -577,8 +577,8 @@ public class MusicHub implements socketServer
         String name,idd;
         int ans,inde=-1,cptt=0;
         affplaylist(output, input);
-        System.out.print("Donnez le nom de la playlist à créer : "+" ");
-        writeTo(output,"Donnez le nom de la playlist à créer : "+" ");
+        System.out.print("Donnez le nom de la playlist a creer : "+" ");
+        writeTo(output,"Donnez le nom de la playlist a creer : "+" ");
         writeTo(output,"OK");
         name = readFrom(input);
         idd = creaID(0);
@@ -590,13 +590,13 @@ public class MusicHub implements socketServer
         	cptt ++;
         }
         if(inde == -1){ 
-        	System.out.print("La playlist :"+name+" existe déjà !");
-            writeTo(output,"La playlist :"+name+" existe déjà !");
+        	System.out.print("La playlist :"+name+" existe deja !");
+            writeTo(output,"La playlist :"+name+" existe deja !");
         	return;
         }
-        System.out.print("Etes-vous sûr de vouloir créer la playlist : "+name+","+idd+"? ");
+        System.out.print("Etes-vous sûr de vouloir creer la playlist : "+name+","+idd+"? ");
         System.out.print("\t"+"Tapez '0' pour oui et '1' pour non."+" ");
-        writeTo(output,"Etes-vous sûr de vouloir créer la playlist : "+name+","+idd+"? ");
+        writeTo(output,"Etes-vous sûr de vouloir creer la playlist : "+name+","+idd+"? ");
         writeTo(output,"\t"+"Tapez '0' pour oui et '1' pour non."+" ");
         writeTo(output,"OK");
         ans = Integer.parseInt(readFrom(input));
@@ -610,13 +610,13 @@ public class MusicHub implements socketServer
         	/* Affichage des chansons et livres audios existants*/
         	System.out.println("Les Chansons existantes :\n"+chansons.toString());
         	System.out.println("Les Livres-Audios existants :\n"+livres.toString());
-        	System.out.println("Veuillez choisir une chanson ou un livre à ajouter à votre playlist.");
+        	System.out.println("Veuillez choisir une chanson ou un livre a ajouter a votre playlist.");
         	System.out.println("\t"+" Tapez 'C' pour ajouter une chanson et 'L' pour un livre");
             System.out.println("\t"+" Pour arreter les ajouts, tapez 'S'"+" ");
         	do{
                 writeTo(output,"Les Chansons existantes :\n"+chansons.toString());
                 writeTo(output,"Les Livres-Audios existants :\n"+livres.toString());
-                writeTo(output,"Veuillez choisir une chanson ou un livre à ajouter à votre playlist.");
+                writeTo(output,"Veuillez choisir une chanson ou un livre a ajouter a votre playlist.");
                 writeTo(output,"\t"+" Tapez 'C' pour ajouter une chanson et 'L' pour un livre");
                 writeTo(output,"\t"+" Pour arreter les ajouts, tapez 'S'"+" ");
                 writeTo(output,"OK");
@@ -628,8 +628,8 @@ public class MusicHub implements socketServer
                     case "C":
                         String nomchanson;
                         int index = -1,cmpt = 0;
-                        System.out.print("Donnez le titre de la chanson à déplacer: "+" ");
-                        writeTo(output,"Donnez le titre de la chanson à déplacer: "+" ");
+                        System.out.print("Donnez le titre de la chanson a deplacer: "+" ");
+                        writeTo(output,"Donnez le titre de la chanson a deplacer: "+" ");
                         writeTo(output,"OK");
                         nomchanson = readFrom(input);
                         //nomchanson = "Hey Jude";
@@ -667,8 +667,8 @@ public class MusicHub implements socketServer
                     case "L" :
                         String nomlivre;
                         int i = -1,ite = 0;
-                        System.out.print("Donnez le titre du livre à déplacer: "+" ");
-                        writeTo(output,"Donnez le titre du livre à déplacer: "+" ");
+                        System.out.print("Donnez le titre du livre a deplacer: "+" ");
+                        writeTo(output,"Donnez le titre du livre a deplacer: "+" ");
                         writeTo(output,"OK");
                         nomlivre = readFrom(input);
                         System.out.println("nomlivre = " + nomlivre);
@@ -719,11 +719,11 @@ public class MusicHub implements socketServer
             break;
             
             case 1:
-            System.out.println("Vous n'avez pas ajouté de playlist ! ");
-            writeTo(output,"Vous n'avez pas ajouté de playlist ! ");
+            System.out.println("Vous n'avez pas ajoute de playlist ! ");
+            writeTo(output,"Vous n'avez pas ajoute de playlist ! ");
             break;
         }
-        writeTo(output,"\t Appuyez sur Entrée"+" ");
+        writeTo(output,"\t Appuyez sur Entree"+" ");
         writeTo(output,"OK");
         name = readFrom(input);
     }
@@ -738,12 +738,12 @@ public class MusicHub implements socketServer
         String nom,id;
         int answer,index=-1,compt=0;
         affplaylist(output, input);
-        System.out.print("Donnez le nom de la playlist à supprimer : "+" ");
-        writeTo(output,"Donnez le nom de la playlist à supprimer : "+" ");
+        System.out.print("Donnez le nom de la playlist a supprimer : "+" ");
+        writeTo(output,"Donnez le nom de la playlist a supprimer : "+" ");
         writeTo(output,"OK");
         nom = readFrom(input);
-        System.out.print("Donnez l'ID de la playlist à supprimer : "+" ");
-        writeTo(output,"Donnez l'ID de la playlist à supprimer (de la forme XXX-XXX-XXX): "+" ");
+        System.out.print("Donnez l'ID de la playlist a supprimer : "+" ");
+        writeTo(output,"Donnez l'ID de la playlist a supprimer (de la forme XXX-XXX-XXX): "+" ");
         writeTo(output,"OK");
         id = readFrom(input);
         for(Playlist play : playlists){
@@ -805,11 +805,11 @@ public class MusicHub implements socketServer
                 break;
             
             	case 1:
-                System.out.println("Vous n'avez rien supprimé ! ");
-                writeTo(output,"Vous n'avez rien supprimé ! ");
+                System.out.println("Vous n'avez rien supprime ! ");
+                writeTo(output,"Vous n'avez rien supprime ! ");
                 break;
         }
-        writeTo(output,"\t"+"Appuyez sur Entrée"+" ");
+        writeTo(output,"\t"+"Appuyez sur Entree"+" ");
         writeTo(output,"OK");
         id = readFrom(input);
         
@@ -828,7 +828,7 @@ public class MusicHub implements socketServer
         ecriture.writePlaylists(this.playlists);
         ecriture.writeAlbums(this.albums);
         ecriture.writeElements(this.chansons,this.livres);
-        writeTo(output,"\t Appuyez sur Entrée "+" ");
+        writeTo(output,"\t Appuyez sur Entree "+" ");
         writeTo(output,"OK");
         readFrom(input);
     }
@@ -864,7 +864,7 @@ public class MusicHub implements socketServer
             }
             i++;
         }
-        writeTo(output,"\t Appuyez sur Entrée "+" ");
+        writeTo(output,"\t Appuyez sur Entree "+" ");
         writeTo(output,"OK");
         readFrom(input);
     }
@@ -879,7 +879,7 @@ public class MusicHub implements socketServer
         Collections.sort(albums, new SortByDate());
         System.out.println(albums);
         writeTo(output,albums.toString());
-        writeTo(output,"\t Appuyez sur Entrée "+" ");
+        writeTo(output,"\t Appuyez sur Entree "+" ");
         writeTo(output,"OK");
         readFrom(input);
     }
@@ -894,7 +894,7 @@ public class MusicHub implements socketServer
         Collections.sort(chansons, new SortByGenre());
         System.out.println(chansons);
         writeTo(output,chansons.toString());
-        writeTo(output,"\t Appuyez sur Entrée "+" ");
+        writeTo(output,"\t Appuyez sur Entree "+" ");
         writeTo(output,"OK");
         readFrom(input);
     }
@@ -934,7 +934,7 @@ public class MusicHub implements socketServer
                 }
             }
         }
-        writeTo(output,"\t Appuyez sur Entrée "+" ");
+        writeTo(output,"\t Appuyez sur Entree "+" ");
         writeTo(output,"OK");
         readFrom(input);
     }
@@ -949,7 +949,7 @@ public class MusicHub implements socketServer
         Collections.sort(livres, new SortByAuthor());
         System.out.println(livres);
         writeTo(output,livres.toString());
-        writeTo(output,"\t Appuyez sur Entrée "+" ");
+        writeTo(output,"\t Appuyez sur Entree "+" ");
         writeTo(output,"OK");
         readFrom(input);
     }
@@ -966,12 +966,12 @@ public class MusicHub implements socketServer
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("++++++++++++++++++++++++    Menu d'aide aux commandes du MusicHub      +++++++++++++++++++++++");
         System.out.println("Veuillez entrer le caractère dont vous voulez connaitre l'aide: ");
-        System.out.println("\tRajout : Chanson (c) ; Album (a) ; Chanson à un Album (+) Livre-Audio (l). ");
-        System.out.println("\tCréation : Playlist à partir element existant(p).                          ");
+        System.out.println("\tRajout : Chanson (c) ; Album (a) ; Chanson a un Album (+) Livre-Audio (l). ");
+        System.out.println("\tCreation : Playlist a partir element existant(p).                          ");
         System.out.println("\tSuppression : Playlist (-).                                                ");
-        System.out.println("\tSauvegarde : Nouveaux elements pour utilisation ultérieure (s).            ");
+        System.out.println("\tSauvegarde : Nouveaux elements pour utilisation ulterieure (s).            ");
         System.out.println("\tAide : Commandes (h) ; Options (o) ; Quitter (q).                          ");
-        System.out.println("\tVérification (v) : Affiche les vérifications de récupération des fichiers. ");
+        System.out.println("\tVerification (v) : Affiche les verifications de recuperation des fichiers. ");
         System.out.println("Pour sortir de l'aide tappez 'z'. ");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         String menu;
@@ -982,12 +982,12 @@ public class MusicHub implements socketServer
             writeTo(output,"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             writeTo(output,"++++++++++++++++++++++++    Menu d'aide aux commandes du MusicHub      +++++++++++++++++++++++");
             writeTo(output,"Veuillez entrer le caractère dont vous voulez connaitre l'aide: ");
-            writeTo(output,"\tRajout : Chanson (c) ; Album (a) ; Chanson à un Album (+) Livre-Audio (l). ");
-            writeTo(output,"\tCréation : Playlist à partir element existant(p).                          ");
+            writeTo(output,"\tRajout : Chanson (c) ; Album (a) ; Chanson a un Album (+) Livre-Audio (l). ");
+            writeTo(output,"\tCreation : Playlist a partir element existant(p).                          ");
             writeTo(output,"\tSuppression : Playlist (-).                                                ");
-            writeTo(output,"\tSauvegarde : Nouveaux elements pour utilisation ultérieure (s).            ");
+            writeTo(output,"\tSauvegarde : Nouveaux elements pour utilisation ulterieure (s).            ");
             writeTo(output,"\tAide : Commandes (h) ; Options (o) ; Quitter (q).                          ");
-            writeTo(output,"\tVérification (v) : Affiche les vérifications de récupération des fichiers. ");
+            writeTo(output,"\tVerification (v) : Affiche les verifications de recuperation des fichiers. ");
             writeTo(output,"Pour sortir de l'aide tappez 'z'. ");
             writeTo(output,"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             writeTo(output,"OK");
@@ -996,43 +996,43 @@ public class MusicHub implements socketServer
             switch(menu)
             {
                 case "c":
-                    System.out.println("+ Pour ajouter une nouvelle chanson au catalogue du Hub, il vous suffit de tapez c sur votre clavier.\nIl vous sera ensuite demandé de rentrer à l'aide de votre clavier les différents paramètres de la nouvelle chanson.\nCette chanson sera automatiquement ajoutée à votre liste de chansons par défaut.\t+");
-                    writeTo(output,"+ Pour ajouter une nouvelle chanson au catalogue du Hub, il vous suffit de tapez c sur votre clavier.\nIl vous sera ensuite demandé de rentrer à l'aide de votre clavier les différents paramètres de la nouvelle chanson.\nCette chanson sera automatiquement ajoutée à votre liste de chansons par défaut.\t+");
+                    System.out.println("+ Pour ajouter une nouvelle chanson au catalogue du Hub, il vous suffit de tapez c sur votre clavier.\nIl vous sera ensuite demande de rentrer a l'aide de votre clavier les differents paramètres de la nouvelle chanson.\nCette chanson sera automatiquement ajoutee a votre liste de chansons par defaut.\t+");
+                    writeTo(output,"+ Pour ajouter une nouvelle chanson au catalogue du Hub, il vous suffit de tapez c sur votre clavier.\nIl vous sera ensuite demande de rentrer a l'aide de votre clavier les differents paramètres de la nouvelle chanson.\nCette chanson sera automatiquement ajoutee a votre liste de chansons par defaut.\t+");
                     break;
                     
                 case "a":
-                    System.out.println("+ Pour ajouter un nouvel album au catalogue des albums de votre Hub, il vous suffit de tapez a sur votre clavier.\nIl vous sera demandé de remplir les paramètres affichés à l'écran à l'aide de votre clavier.\nUne vérification sera réalisée en fin d'action afin d'être sur de votre choix.\nCe choix sera enregistré dans votre liste d'albums.\t+");
-                    writeTo(output,"+ Pour ajouter un nouvel album au catalogue des albums de votre Hub, il vous suffit de tapez a sur votre clavier.\nIl vous sera demandé de remplir les paramètres affichés à l'écran à l'aide de votre clavier.\nUne vérification sera réalisée en fin d'action afin d'être sur de votre choix.\nCe choix sera enregistré dans votre liste d'albums.\t+");
+                    System.out.println("+ Pour ajouter un nouvel album au catalogue des albums de votre Hub, il vous suffit de tapez a sur votre clavier.\nIl vous sera demande de remplir les paramètres affiches a l'ecran a l'aide de votre clavier.\nUne verification sera realisee en fin d'action afin d'être sur de votre choix.\nCe choix sera enregistre dans votre liste d'albums.\t+");
+                    writeTo(output,"+ Pour ajouter un nouvel album au catalogue des albums de votre Hub, il vous suffit de tapez a sur votre clavier.\nIl vous sera demande de remplir les paramètres affiches a l'ecran a l'aide de votre clavier.\nUne verification sera realisee en fin d'action afin d'être sur de votre choix.\nCe choix sera enregistre dans votre liste d'albums.\t+");
                     break;
                     
                 case "+":
-                    System.out.println("+ Pour rajouter une chanson déjà présente dans votre catalogue à un album créé, il vous sera demandé d'entrer + sur votre clavier.\nRemplissez ensuite les champs demandé par votre MusicHub à l'aide de votre clavier afin d'ajouter votre chanson à l'album désiré.\nEn cas d'oubli, une liste des chansons et des albums disponibles vous sera rappelée.\nUne vérification sera faite en fin d'ajout pour vous montrer l'action que vous venez de réalisé.\nLa chanson sera automatiquement transféré dans cet album grâce au changement de son ID.\t+");
-                    writeTo(output,"+ Pour rajouter une chanson déjà présente dans votre catalogue à un album créé, il vous sera demandé d'entrer + sur votre clavier.\\nRemplissez ensuite les champs demandé par votre MusicHub à l'aide de votre clavier afin d'ajouter votre chanson à l'album désiré.\\nEn cas d'oubli, une liste des chansons et des albums disponibles vous sera rappelée.\\nUne vérification sera faite en fin d'ajout pour vous montrer l'action que vous venez de réalisé.\\nLa chanson sera automatiquement transféré dans cet album grâce au changement de son ID.\\t+");
+                    System.out.println("+ Pour rajouter une chanson deja presente dans votre catalogue a un album cree, il vous sera demande d'entrer + sur votre clavier.\nRemplissez ensuite les champs demande par votre MusicHub a l'aide de votre clavier afin d'ajouter votre chanson a l'album desire.\nEn cas d'oubli, une liste des chansons et des albums disponibles vous sera rappele.\nUne verification sera faite en fin d'ajout pour vous montrer l'action que vous venez de realise.\nLa chanson sera automatiquement transfere dans cet album grâce au changement de son ID.\t+");
+                    writeTo(output,"+ Pour rajouter une chanson deja presente dans votre catalogue a un album cree, il vous sera demande d'entrer + sur votre clavier.\\nRemplissez ensuite les champs demande par votre MusicHub a l'aide de votre clavier afin d'ajouter votre chanson a l'album desire.\\nEn cas d'oubli, une liste des chansons et des albums disponibles vous sera rappelee.\\nUne verification sera faite en fin d'ajout pour vous montrer l'action que vous venez de realise.\\nLa chanson sera automatiquement transfere dans cet album grâce au changement de son ID.\\t+");
                     break;
                     
                 case "l":
-                    System.out.println("+ Pour ajouter une nouveau livre-audio au catalogue du Hub, il vous suffit de tapez l sur votre clavier.\nIl vous sera ensuite demandé de rentrer à l'aide de votre clavier les différents paramètres du nouveau livre-audio à ajouter.\nCe livre audio sera automatiquement ajouté à votre liste de chansons par défaut mais sera bien de type 'livre audio.\t+");
-                    writeTo(output,"+ Pour ajouter une nouveau livre-audio au catalogue du Hub, il vous suffit de tapez l sur votre clavier.\nIl vous sera ensuite demandé de rentrer à l'aide de votre clavier les différents paramètres du nouveau livre-audio à ajouter.\nCe livre audio sera automatiquement ajouté à votre liste de chansons par défaut mais sera bien de type 'livre audio.\t+");
+                    System.out.println("+ Pour ajouter une nouveau livre-audio au catalogue du Hub, il vous suffit de tapez l sur votre clavier.\nIl vous sera ensuite demande de rentrer a l'aide de votre clavier les differents paramètres du nouveau livre-audio a ajouter.\nCe livre audio sera automatiquement ajoute a votre liste de chansons par defaut mais sera bien de type 'livre audio.\t+");
+                    writeTo(output,"+ Pour ajouter une nouveau livre-audio au catalogue du Hub, il vous suffit de tapez l sur votre clavier.\nIl vous sera ensuite demande de rentrer a l'aide de votre clavier les differents paramètres du nouveau livre-audio a ajouter.\nCe livre audio sera automatiquement ajoute a votre liste de chansons par defaut mais sera bien de type 'livre audio.\t+");
                     break;
                     
                 case "p":
-                    System.out.println("+ Afin de créer une nouvelle playlist à votre catalogue de MusicHub, il vous suffit d'entrer au clavier la lettre p.\nAttention, cette fonctionnalité ne s'applique qu'à des chansons ou livres-audios déjà présent dans votre Hub.\nIl vous sera demandé de donner le nom de votre playlist puis de rajouter les éléments voulu au sein de celle-ci.\nVous devrez bien choisir si vous voulez ajouter des chansons ou des livres-audios car il vous sera impossible d'ajouter des chansons si vous avez précedemment ajouté un livre.\nUn système de vérification vous laissera le choix de ne pas créer la playlist en cas d'erreur.\t+");
-                    writeTo(output,"+ Afin de créer une nouvelle playlist à votre catalogue de MusicHub, il vous suffit d'entrer au clavier la lettre p.\nAttention, cette fonctionnalité ne s'applique qu'à des chansons ou livres-audios déjà présent dans votre Hub.\nIl vous sera demandé de donner le nom de votre playlist puis de rajouter les éléments voulu au sein de celle-ci.\nVous devrez bien choisir si vous voulez ajouter des chansons ou des livres-audios car il vous sera impossible d'ajouter des chansons si vous avez précedemment ajouté un livre.\nUn système de vérification vous laissera le choix de ne pas créer la playlist en cas d'erreur.\t+");
+                    System.out.println("+ Afin de creer une nouvelle playlist a votre catalogue de MusicHub, il vous suffit d'entrer au clavier la lettre p.\nAttention, cette fonctionnalite ne s'applique qu'a des chansons ou livres-audios deja present dans votre Hub.\nIl vous sera demande de donner le nom de votre playlist puis de rajouter les elements voulu au sein de celle-ci.\nVous devrez bien choisir si vous voulez ajouter des chansons ou des livres-audios car il vous sera impossible d'ajouter des chansons si vous avez precedemment ajoute un livre.\nUn système de verification vous laissera le choix de ne pas creer la playlist en cas d'erreur.\t+");
+                    writeTo(output,"+ Afin de creer une nouvelle playlist a votre catalogue de MusicHub, il vous suffit d'entrer au clavier la lettre p.\nAttention, cette fonctionnalite ne s'applique qu'a des chansons ou livres-audios deja present dans votre Hub.\nIl vous sera demande de donner le nom de votre playlist puis de rajouter les elements voulu au sein de celle-ci.\nVous devrez bien choisir si vous voulez ajouter des chansons ou des livres-audios car il vous sera impossible d'ajouter des chansons si vous avez precedemment ajoute un livre.\nUn système de verification vous laissera le choix de ne pas creer la playlist en cas d'erreur.\t+");
                     break;
                     
                 case "-":
-                    System.out.println("+ Pour effacer une playlist, il vous sera demandé de taper sur votre clavier le caractère -.\nCeci réalisé, il vous sera demandé de rentrer manuellement le nom de la playlist à supprimer.\nEn aucune façon il vous sera possible de retirer une chanson de la playlist ou d'entrer un element d'une playlist pour l'effacer complètement.\nSeul le nom de celle-ci compte.\nUn système de vérification vous permettra de valider vos choix.\t+");
-                    writeTo(output,"+ Pour effacer une playlist, il vous sera demandé de taper sur votre clavier le caractère -.\nCeci réalisé, il vous sera demandé de rentrer manuellement le nom de la playlist à supprimer.\nEn aucune façon il vous sera possible de retirer une chanson de la playlist ou d'entrer un element d'une playlist pour l'effacer complètement.\nSeul le nom de celle-ci compte.\nUn système de vérification vous permettra de valider vos choix.\t+");
+                    System.out.println("+ Pour effacer une playlist, il vous sera demande de taper sur votre clavier le caractère -.\nCeci realise, il vous sera demande de rentrer manuellement le nom de la playlist a supprimer.\nEn aucune façon il vous sera possible de retirer une chanson de la playlist ou d'entrer un element d'une playlist pour l'effacer complètement.\nSeul le nom de celle-ci compte.\nUn système de verification vous permettra de valider vos choix.\t+");
+                    writeTo(output,"+ Pour effacer une playlist, il vous sera demande de taper sur votre clavier le caractère -.\nCeci realise, il vous sera demande de rentrer manuellement le nom de la playlist a supprimer.\nEn aucune façon il vous sera possible de retirer une chanson de la playlist ou d'entrer un element d'une playlist pour l'effacer complètement.\nSeul le nom de celle-ci compte.\nUn système de verification vous permettra de valider vos choix.\t+");
                     break;
                     
                 case "s":
-                    System.out.println("+ Afin de sauvegarder vos choix réalisé précédemment lors d'une prochaine utilisation de votre MusicHub,\nil vous sera demandé de sauvegarder vos choix actuel via l'entrée du caractère s sur votre menu d'accueil.\nLa sauvegarde de l'ensemble des éléments est automatique, il ne vous sera nullement demandé d'ajouter au clavier une information.\t+");
-                    writeTo(output,"+ Afin de sauvegarder vos choix réalisé précédemment lors d'une prochaine utilisation de votre MusicHub,\nil vous sera demandé de sauvegarder vos choix actuel via l'entrée du caractère s sur votre menu d'accueil.\nLa sauvegarde de l'ensemble des éléments est automatique, il ne vous sera nullement demandé d'ajouter au clavier une information.\t+");
+                    System.out.println("+ Afin de sauvegarder vos choix realise precedemment lors d'une prochaine utilisation de votre MusicHub,\nil vous sera demande de sauvegarder vos choix actuel via l'entree du caractère s sur votre menu d'accueil.\nLa sauvegarde de l'ensemble des elements est automatique, il ne vous sera nullement demande d'ajouter au clavier une information.\t+");
+                    writeTo(output,"+ Afin de sauvegarder vos choix realise precedemment lors d'une prochaine utilisation de votre MusicHub,\nil vous sera demande de sauvegarder vos choix actuel via l'entree du caractère s sur votre menu d'accueil.\nLa sauvegarde de l'ensemble des elements est automatique, il ne vous sera nullement demande d'ajouter au clavier une information.\t+");
                     break;
                     
                 case "h":
-                    System.out.println("+\tLa saisie de 'h' vous permet d'acceder à ce menu d'aide.\nIl est seulement disponible via le menu d'accueil.\t+");
-                    writeTo(output,"+\tLa saisie de 'h' vous permet d'acceder à ce menu d'aide.\nIl est seulement disponible via le menu d'accueil.\t+");
+                    System.out.println("+\tLa saisie de 'h' vous permet d'acceder a ce menu d'aide.\nIl est seulement disponible via le menu d'accueil.\t+");
+                    writeTo(output,"+\tLa saisie de 'h' vous permet d'acceder a ce menu d'aide.\nIl est seulement disponible via le menu d'accueil.\t+");
                     break;
                     
                 case "q":
@@ -1041,28 +1041,28 @@ public class MusicHub implements socketServer
                     break;
                     
                 case "o":
-                    System.out.println("+\tCette option est seulement disponible dans ce menu d'aide. Elle vous permettra de changer les réglages de lecture des éléments de votre MusicHub.\t+");
-                    writeTo(output,"+\tCette option est seulement disponible dans ce menu d'aide. Elle vous permettra de changer les réglages de lecture des éléments de votre MusicHub.\t+");
+                    System.out.println("+\tCette option est seulement disponible dans ce menu d'aide. Elle vous permettra de changer les reglages de lecture des elements de votre MusicHub.\t+");
+                    writeTo(output,"+\tCette option est seulement disponible dans ce menu d'aide. Elle vous permettra de changer les reglages de lecture des elements de votre MusicHub.\t+");
                     Options op = new Options();
                     op.menu();
                     break;
                     
                 case "v" :
-                    System.out.println("\t\tVérification de la liste :");
+                    System.out.println("\t\tVerification de la liste :");
                     System.out.println(playlists.toString());
-                    System.out.println("\t\tVérification de la liste CHANSONS:");
+                    System.out.println("\t\tVerification de la liste CHANSONS:");
                     System.out.println(chansons.toString());
-                    System.out.println("\t\tVérification de la liste LIVRESAUDIOS:");
+                    System.out.println("\t\tVerification de la liste LIVRESAUDIOS:");
                     System.out.println(livres.toString());
-                    System.out.println("\t\tVérification de la liste :");
+                    System.out.println("\t\tVerification de la liste :");
                     System.out.println(albums.toString());
-                    writeTo(output,"\t\tVérification de la liste :");
+                    writeTo(output,"\t\tVerification de la liste :");
                     writeTo(output,playlists.toString());
-                    writeTo(output,"\t\tVérification de la liste CHANSONS:");
+                    writeTo(output,"\t\tVerification de la liste CHANSONS:");
                     writeTo(output,chansons.toString());
-                    writeTo(output,"\t\tVérification de la liste LIVRESAUDIOS:");
+                    writeTo(output,"\t\tVerification de la liste LIVRESAUDIOS:");
                     writeTo(output,livres.toString());
-                    writeTo(output,"\t\tVérification de la liste :");
+                    writeTo(output,"\t\tVerification de la liste :");
                     writeTo(output,albums.toString());
                     break;
                     
@@ -1073,11 +1073,11 @@ public class MusicHub implements socketServer
                     break;
                     
                 default :
-                    System.out.println("Saisie incorrecte. Veuillez choisir une option proposée");
-                    writeTo(output,"Saisie incorrecte. Veuillez choisir une option proposée");
+                    System.out.println("Saisie incorrecte. Veuillez choisir une option proposee");
+                    writeTo(output,"Saisie incorrecte. Veuillez choisir une option proposee");
                     break;
             }
-            writeTo(output,"\t(Appuyez sur Entrée)");
+            writeTo(output,"\t(Appuyez sur Entree)");
             writeTo(output,"OK");
             menu = readFrom(input);
         }
@@ -1085,7 +1085,7 @@ public class MusicHub implements socketServer
     }
 
     /**
-     * Méthode qui affiche sur la sortie output donnée en paramètre un string s
+     * Methode qui affiche sur la sortie output donnee en paramètre un string s
      * @see socketServer
      * @param output
      * @param s

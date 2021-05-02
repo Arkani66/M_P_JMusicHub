@@ -39,7 +39,7 @@ import java.util.Scanner;
             String question = "null";
             String reponseC= "null";
             clearScreen();
-            System.out.println("Toutes les récupérations sont finis");
+            System.out.println("Toutes les recuperations sont finis");
             while( question.compareTo("quitter") != 0)
             {
                 String line;
@@ -52,19 +52,15 @@ import java.util.Scanner;
                 writer.println(question);
                 writer.flush();
                 while( true ){
-                    System.out.println("line = "+line);
                     while((line = reader.readLine()).compareTo("OK") != 0 ){
                         System.out.println(line);
                         if( line.equals("fin")) break;
                     }
                     if( line.equals("fin")) break;
-                    System.out.println("avant scanner");
                     question = scanner.nextLine();
                     writer.println(question);
                     writer.flush();
-                    System.out.println("après write");
                 }
-                System.out.println("fin boucle");
             }
             writer.println("quitter");
             input.close();//clôt le InputStream
@@ -100,12 +96,12 @@ import java.util.Scanner;
         System.out.println("Si vous voulez : .... =>tappez ...");
         System.out.println("Rajout d'une nouvelle chanson                                           => c ");
         System.out.println("Rajout d'un nouvel album                                                => a ");
-        System.out.println("Rajout d'une chanson existante à un album                               => + ");
+        System.out.println("Rajout d'une chanson existante a un album                               => + ");
         System.out.println("Rajout d'un nouveau livre audio                                         => l ");
-        System.out.println("Création d'une nouvelle playlist à partir de chanson existante          => p ");
+        System.out.println("Creation d'une nouvelle playlist a partir de chanson existante          => p ");
         System.out.println("Suppression d'une playlist                                              => - ");
         System.out.println("Sauvegarde des playlists, des albums, des chansons, des livres audios   => s ");
-        System.out.println("Aide avec les détails des commandes précédentes                         => h ");
+        System.out.println("Aide avec les details des commandes precedentes                         => h ");
         System.out.println("\t\tQuitter le jMusicHub ==> quitter");
         System.out.println("\t\t"+" --------------------------------------- ");
 
@@ -132,7 +128,7 @@ import java.util.Scanner;
                 break;
 
             case "+":
-                System.out.println("Vous avez choisi => Rajout d'une chanson existante à un album ");
+                System.out.println("Vous avez choisi => Rajout d'une chanson existante a un album ");
                 retour = "+";
                 break;
 
@@ -142,7 +138,7 @@ import java.util.Scanner;
                 break;
 
             case "p":
-                System.out.println("Vous avez choisi => Création d'une nouvelle playlist à partir de chanson existante ");
+                System.out.println("Vous avez choisi => Creation d'une nouvelle playlist a partir de chanson existante ");
                 retour = "p";
                 break;
 
@@ -157,7 +153,7 @@ import java.util.Scanner;
                 break;
 
             case "h":
-                System.out.println("Vous avez choisi => Aide avec les détails des commandes précédentes ");
+                System.out.println("Vous avez choisi => Aide avec les details des commandes precedentes ");
                 retour = "h";
                 break;
             case "q":
@@ -168,7 +164,7 @@ import java.util.Scanner;
                 retour = "quitter";
                 break;
             default :
-                System.out.println("Saisie incorrecte. Veuillez choisir une option proposée");
+                System.out.println("Saisie incorrecte. Veuillez choisir une option proposee");
                 break;
         }
         return retour;

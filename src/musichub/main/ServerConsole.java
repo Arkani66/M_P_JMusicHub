@@ -43,9 +43,7 @@ public class ServerConsole implements socketServer {
 
             while( !(text.equals("quitter")) ){
                 text = readFrom(input);
-                System.out.println("text ="+text);
                 System.out.println("Client ask :"+text);
-                System.out.println("2 text ="+text);
                 text = ChoixClient(hub,output,input,text);
             }
             output.close();
