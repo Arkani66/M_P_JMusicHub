@@ -17,13 +17,13 @@ import java.util.Scanner;
 
  public class MusicHubConsole
 {
-
+        String ip = "localhost";
+        int port = 6666;
     /**
      * Constructeur de la classe : créer le socket client
      */
     public MusicHubConsole(){
-        String ip = "localhost";
-        int port = 6666;
+
         try(Socket socket = new Socket(ip,port) ) {//ouvre le socket
 
             OutputStream output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
