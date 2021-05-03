@@ -11,10 +11,12 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
-        <sourceDirectory>src</sourceDirectory>
+        <sourceDirectory>${basedir}/src/musichub</sourceDirectory>
+        <testSourceDirectory>${basedir}/src/test</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -69,9 +71,6 @@
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
                             <configuration>
                                 <show>private</show>
                                 <nohelp>true</nohelp>

@@ -5,7 +5,8 @@
   <artifactId>musicHubLibrary</artifactId>
   <version>1.0.0</version>
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>${basedir}/src/musichub</sourceDirectory>
+    <testSourceDirectory>${basedir}/src/test</testSourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
@@ -37,9 +38,6 @@
         <executions>
           <execution>
             <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
             <configuration>
               <show>private</show>
               <nohelp>true</nohelp>
@@ -71,5 +69,6 @@
   <properties>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 </project>

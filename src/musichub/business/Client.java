@@ -68,7 +68,6 @@ public class Client implements socketServer {
         }
     }
 
-    @Override
     public void closeSocket() {
         try {
             this.socket.close();
