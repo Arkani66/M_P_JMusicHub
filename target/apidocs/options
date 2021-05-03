@@ -1,0 +1,25 @@
+-classpath
+'/home/florence/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.0.2/junit-jupiter-api-5.0.2.jar:/home/florence/.m2/repository/org/opentest4j/opentest4j/1.0.0/opentest4j-1.0.0.jar:/home/florence/.m2/repository/org/junit/platform/junit-platform-commons/1.0.2/junit-platform-commons-1.0.2.jar:/home/florence/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.0.2/junit-jupiter-engine-5.0.2.jar:/home/florence/.m2/repository/org/junit/platform/junit-platform-engine/1.0.2/junit-platform-engine-1.0.2.jar'
+-encoding
+'UTF-8'
+-private
+-sourcepath
+'/home/florence/Documents/info 3A/poo/Projet poo/Projet poo2.2/MICONNET_PROSPA_projet_poo/Projet poo LINUX/src/musichub'
+-author
+-bottom
+'Copyright &#169; 2021. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/florence/Documents/info 3A/poo/Projet poo/Projet poo2.2/MICONNET_PROSPA_projet_poo/Projet poo LINUX/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'musicHubLibrary 1.0.0 API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' '/home/florence/Documents/info 3A/poo/Projet poo/Projet poo2.2/MICONNET_PROSPA_projet_poo/Projet poo LINUX/target/javadoc-bundle-options'
+-nohelp
+-use
+-version
+-windowtitle
+'musicHubLibrary 1.0.0 API'
