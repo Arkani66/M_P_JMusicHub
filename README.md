@@ -11,7 +11,7 @@ README:
 
 Deux versions sensiblement identiques du programmes sont disponibles, selon l'environnement sous lequel vous allez exécuter le programme :
 
- - Pour compiler le programme (sur Windows), aller dans le dossier "Projet poo LINUX" et effectuez les commandes préparatoires suivantes :
+ - Pour compiler le programme (sur Windows), aller dans le dossier de où se trouve les .bat et .sh et effectuez les commandes préparatoires suivantes :
 compile.bat
 runServer.bat
 
