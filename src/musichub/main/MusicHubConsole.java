@@ -17,6 +17,8 @@ import java.util.Scanner;
 
  public class MusicHubConsole
 {
+    String ip = "localhost";
+    int port = 6666;
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -28,8 +30,7 @@ import java.util.Scanner;
      * Constructeur de la classe : créer le socket client
      */
     public MusicHubConsole(){
-        String ip = "localhost";
-        int port = 6666;
+
         try(Socket socket = new Socket(ip,port) ) {//ouvre le socket
 
             OutputStream output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
@@ -45,7 +46,6 @@ import java.util.Scanner;
             String question = "null";
             String reponseC= "null";
             clearScreen();
-            System.out.println("Toutes les récupérations sont finis");
             while( question.compareTo("quitter") != 0)
             {
                 String line;
@@ -58,19 +58,15 @@ import java.util.Scanner;
                 writer.println(question);
                 writer.flush();
                 while( true ){
-                    System.out.println(ANSI_BLUE+"line = "+line+ANSI_RESET);
                     while((line = reader.readLine()).compareTo("OK") != 0 ){
                         System.out.println(line);
                         if( line.equals("fin")) break;
                     }
                     if( line.equals("fin")) break;
-                    System.out.println(ANSI_BLUE+"avant scanner"+ANSI_RESET);
                     question = scanner.nextLine();
                     writer.println(question);
                     writer.flush();
-                    System.out.println(ANSI_BLUE+"après write"+ANSI_RESET);
                 }
-                System.out.println(ANSI_BLUE+"fin boucle"+ANSI_RESET);
             }
             writer.println("quitter");
             input.close();//clôt le InputStream
