@@ -8,6 +8,9 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;  
 import java.util.Date;  
 import java.util.Calendar;  
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.*;
 
 /**
  * Cette classe effectue toutes les actions disponibles sur la console du MusicHub
@@ -81,6 +84,59 @@ public class MusicHub
         if (chansons.isEmpty()) throw new EmptyFichException ("Le fichier 'elements.xml' demandé est vide pour les chansons.");
         if (livres.isEmpty()) throw new EmptyFichException ("Le fichier 'elements.xml' demandé est vide pour les livres audio.");
     }
+    public void recupElement() throws EmptyFichException{
+        FileXML recup = new FileXML();
+        chansons = recup.readElementsChansons(chansons);
+        if (chansons.isEmpty()) throw new EmptyFichException ("Le fichier 'elements.xml' demandé est vide pour les chansons.");
+       
+    }
+    /*Methode  qui récupère l'emplacement d'un fichier son en format .wav et qui le lance selon la demande  de l'utilisateur*/
+
+    public static void playSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        Scanner sc= new Scanner(System.in); //System.in is a standard input stream  
+        System.out.println("Play music by enter the title:");  
+        String title= sc.nextLine();              //reads string   
+        System.out.print("You have entered: "+title); 
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("files/musique/" + title + ".wav"));
+        /*if(audioStream != null)
+        {
+       System.out.println("Le fichier audio est ouvert");
+        }
+        else{
+            System.out.println("Erreur : vous avez mal ecrit le titre ou ajouter le fichier audio .wav dans le dossier contenant les fichiers audios sinon vous ne pourrez pas l'écouter");
+        }
+        */
+       Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        
+        String response = "";
+       
+        
+        while(!response.equals("Q")) {
+         System.out.println("\nP = play, S = Stop, R = Reset, Q = Quit");
+         System.out.print("Enter your choice: ");
+         
+         response = sc.next();
+         response = response.toUpperCase();
+         
+         switch(response) {
+          case ("P"): clip.start();
+          break;
+          case ("S"): clip.stop();
+          break;
+          case ("R"): clip.setMicrosecondPosition(0);
+          break;
+          case ("Q"): clip.close();
+          break;
+          default: System.out.println("Not a valid response");
+         }
+         
+        }
+    
+    
+        System.out.println("Byeeee!"); 
+       }
+    
 
 /**
 * Méthode qui récupère les éléments du fichier albums.xml et les ajoutent à la liste albums qui contient la liste des albums du MusicHub
