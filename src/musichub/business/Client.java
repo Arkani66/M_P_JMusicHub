@@ -13,13 +13,8 @@ public class Client implements socketServer {
     private InputStream input;
 
     public Client(){
-        try{//ouvre le socket
-            this.socket = new Socket(this.ip,this.port);
-            this.input = socket.getInputStream();//ouvre un flux d'entrée vers le socket
-            this.output = socket.getOutputStream();//ouvre un flux de sortie vers le socket
-            PrintWriter writer = new PrintWriter(this.output, true);//on écrit vers le flux de sortie, en accord avec le protocole du server
-            writer.println("\tClient connected !");
-            writer.flush();
+        try(Socket socket = new Socket(ip,port)){//ouvre le socket
+
         }catch( UnknownHostException uhe){
             System.out.println(uhe.getMessage());
         } catch (IOException ioe) {
