@@ -40,7 +40,7 @@ public class ServerConsole implements socketServer {
 
             MusicHub hub = new MusicHub();
             Recuperation(hub);
-
+            writeTo(output,"Toutes les récupérations sont finis");
             while( !(text.equals("quitter")) ){
                 text = readFrom(input);
                 System.out.println("Client ask :"+text);
@@ -172,11 +172,13 @@ public class ServerConsole implements socketServer {
                 break;
             case "q":
                 fin = true;
+                writeTo(output,"En revoir !");
+                writeTo(output,"OK");
                 break;
 
             case "quitter":
                 fin = true;
-                writeTo(output,"fin");
+                writeTo(output,"En revoir !");
                 writeTo(output,"OK");
                 break;
             default :
