@@ -4,7 +4,7 @@
 
 Bienvenue sur le README de notre projet de MusicHub !
 
-Sur cette branche se trouve la version LINUX du projet 
+Sur cette branche se trouve la version WINDOWS-FRIENDLY du projet 
 
 README:
 @authors CHIDIAC Bryan, LEOPOLD Arnaud, MICONNET Sandrine et PROSPA Florence
