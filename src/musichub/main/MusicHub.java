@@ -239,7 +239,7 @@ public class MusicHub implements socketServer, Audio
         writeTo(output,"OK");
         String title= readFrom(input);              //reads string
         System.out.print("You have entered: "+title);
-        writeTo(output,"Play music by enter the title:");
+        writeTo(output,"You have entered: "+title);
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("files/musique/" + title + ".wav"));
         /*if(audioStream != null)
         {
@@ -256,9 +256,9 @@ public class MusicHub implements socketServer, Audio
 
 
         while(!response.equals("Q")) {
-            System.out.println("\nP = play, S = Stop, R = Reset, Q = Quit");
+            System.out.println("\nP = play, S = Pause, R = Reset, Q = Quit");
             System.out.print("Enter your choice: ");
-            writeTo(output,"\"\\nP = play, S = Stop, R = Reset, Q = Quit\"");
+            writeTo(output,"\"\\nP = Play, S = Pause, R = Reset, Q = Quit\"");
             writeTo(output,"Enter your choice: ");
             writeTo(output,"OK");
 
