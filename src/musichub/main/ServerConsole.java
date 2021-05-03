@@ -6,6 +6,7 @@ import musichub.util.socketServer;
 
 import java.io.*;
 import java.net.*;
+import javax.sound.sampled.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -96,6 +97,20 @@ public class ServerConsole implements socketServer {
 
         switch(reponse)
         {
+            case "e":
+                try {
+                    hub.playSound(output,input);
+                } catch (UnsupportedAudioFileException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (LineUnavailableException e) {
+                    e.printStackTrace();
+                }
+                writeTo(output,"fin");
+                writeTo(output,"OK");
+                break;
+
             case "c":
                 hub.ajoutChansons(output,input);
                 System.out.println("\n\tChansons actuellement dans le Hub");

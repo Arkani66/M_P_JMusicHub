@@ -7,6 +7,8 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
+import javax.sound.sampled.*;
+
 /**
  * Cette classe effectue toutes les actions disponibles sur la console du MusicHub
  * 
@@ -94,6 +96,7 @@ import java.util.Scanner;
         System.out.println("\t\t"+" ---------------MENU------------------- ");
         System.out.println("\t\t"+"                                        ");
         System.out.println("Si vous voulez : .... =>tappez ...");
+        System.out.println("Ecouter une chanson                                                     => e ");
         System.out.println("Rajout d'une nouvelle chanson                                           => c ");
         System.out.println("Rajout d'un nouvel album                                                => a ");
         System.out.println("Rajout d'une chanson existante a un album                               => + ");
@@ -117,6 +120,11 @@ import java.util.Scanner;
 
         switch(reponse)
         {
+            case "e":
+                System.out.println("Vous avez choisi => Ecoute d'une chanson ");
+                retour = "e";
+                break;
+
             case "c":
                 System.out.println("Vous avez choisi => Rajout d'une nouvelle chanson ");
                 retour = "c";
@@ -157,7 +165,7 @@ import java.util.Scanner;
                 retour = "h";
                 break;
             case "q":
-                retour = "q";
+                retour = "quitter";
                 break;
 
             case "quitter":

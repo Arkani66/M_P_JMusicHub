@@ -11,7 +11,7 @@ import musichub.main.*;
  * @author PROSPA Florence et MICONNET Sandrine
  */
 
-public class Chanson extends Son implements Audio
+public class Chanson extends Son
 {
     private String artiste;
     private String contenu; // (fichier audio) => trouver le type
@@ -80,20 +80,6 @@ public class Chanson extends Son implements Audio
 */
     public String getChansonGenre(){
         return genre.toString();
-    }
-
-/**
-*   Méthode de lecture d'un album associée à l'interface Audio
-*/
-    public void play(){
-        System.out.println ("La chanson " +titre+ " est en écoute.");
-    }
-    
-/**
-*   Méthode pour stopper la lecture d'un album associée à l'interface Audio
-*/
-    public void stop(){
-        System.out.println ("Vous venez de stopper l'écoute !");
     }
 }
 

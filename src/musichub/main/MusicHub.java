@@ -6,10 +6,14 @@ import musichub.util.*;
 import java.io.*;
 import java.util.*;
 
+import javax.sound.sampled.*;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;  
-import java.util.Date;  
-import java.util.Calendar;  
+import java.util.Date;
+import java.io.File;
+import java.io.IOException;
+
+
 
 /**
  * Cette classe effectue toutes les actions disponibles sur la console du MusicHub
@@ -17,11 +21,11 @@ import java.util.Calendar;
  * @version 2.0
  *
  * @see MusicHubConsole
- * @author PROSPA Florence et MICONNET Sandrine
+ * @author PROSPA Florence, MICONNET Sandrine, LEOPOLD Arnaud et CHIDIAC Bryan
  */
 
 
-public class MusicHub implements socketServer
+public class MusicHub implements socketServer, Audio
 {
     Scanner scanner = new Scanner(System.in);
     LinkedList<Album> albums;
@@ -220,6 +224,75 @@ public class MusicHub implements socketServer
             i++;
         }
         return retour;
+    }
+
+    /**
+     * Methode  qui récupère l'emplacement d'un fichier son en format .wav et qui le lance selon la demande  de l'utilisateur
+     * @param output
+     * @param input
+     * @return void
+     */
+    public void playSound(OutputStream output, InputStream input) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        Scanner sc= new Scanner(System.in); //System.in is a standard input stream
+        System.out.println("Play music by enter the title:");
+        writeTo(output,"Play music by enter the title:");
+        writeTo(output,"OK");
+        String title= readFrom(input);              //reads string
+        System.out.print("You have entered: "+title);
+        writeTo(output,"Play music by enter the title:");
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("files/musique/" + title + ".wav"));
+        /*if(audioStream != null)
+        {
+       System.out.println("Le fichier audio est ouvert");
+        }
+        else{
+            System.out.println("Erreur : vous avez mal ecrit le titre ou ajouter le fichier audio .wav dans le dossier contenant les fichiers audios sinon vous ne pourrez pas l'écouter");
+        }
+        */
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+
+        String response = "";
+
+
+        while(!response.equals("Q")) {
+            System.out.println("\nP = play, S = Stop, R = Reset, Q = Quit");
+            System.out.print("Enter your choice: ");
+            writeTo(output,"\"\\nP = play, S = Stop, R = Reset, Q = Quit\"");
+            writeTo(output,"Enter your choice: ");
+            writeTo(output,"OK");
+
+            response = readFrom(input);
+            response = response.toUpperCase();
+
+            switch(response) {
+                case ("P"):
+                    //clip.start();
+                    playSong(clip);
+                    break;
+                case ("S"):
+                    //clip.stop();
+                    stopSong(clip);
+                    break;
+                case ("R"):
+                    //clip.setMicrosecondPosition(0);
+                    resetSong(clip,0);
+                    break;
+                case ("Q"):
+                    //clip.close();
+                    closeSong(clip);
+                    break;
+                default:
+                    System.out.println("Not a valid response");
+                    writeTo(output, "Not a valid response");
+            }
+
+        }
+        System.out.println("Byeeee!");
+        writeTo(output, "Byeeee!");
+        writeTo(output,"\t Appuyez sur Entree "+" ");
+        writeTo(output,"OK");
+        readFrom(input);
     }
 
 /**
@@ -1113,5 +1186,25 @@ public class MusicHub implements socketServer
             e.printStackTrace();
         }
         return textread;
+    }
+
+    @Override
+    public void playSong(Clip clip) {
+        clip.start();
+    }
+
+    @Override
+    public void stopSong(Clip clip) {
+        clip.stop();
+    }
+
+    @Override
+    public void resetSong(Clip clip, int sec) {
+        clip.setMicrosecondPosition(sec);
+    }
+
+    @Override
+    public void closeSong(Clip clip) {
+        clip.close();
     }
 }
