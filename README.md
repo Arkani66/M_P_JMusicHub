@@ -11,14 +11,14 @@ README:
 
 Deux versions sensiblement identiques du programmes sont disponibles, selon l'environnement sous lequel vous allez exécuter le programme :
 
-	 - Pour compiler le programme (sur Windows), aller dans le dossier "Projet poo LINUX" et effectuez les commandes préparatoires suivantes :
-	compile.bat
-	runServer.bat
+ - Pour compiler le programme (sur Windows), aller dans le dossier "Projet poo LINUX" et effectuez les commandes préparatoires suivantes :
+compile.bat
+runServer.bat
 
-	---> Cela permet de s'assurer que les fichiers sont bien des executables.
-	Par la suite vous pourrez compiler à l'aide des commandes suivantes dans 2 terminaux différents:
-	runServer.bat
-	runClient.bat
+---> Cela permet de s'assurer que les fichiers sont bien des executables.
+Par la suite vous pourrez compiler à l'aide des commandes suivantes dans 2 terminaux différents:
+runServer.bat
+runClient.bat
 
 /!\/!\  ATTENTION /!\/!\
 Veillez à bien lancer le ./runServer.sh en premier sinon le programmene se lancera pas correctement
