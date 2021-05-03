@@ -10,7 +10,7 @@ import musichub.main.*;
  * @author PROSPA Florence et MICONNET Sandrine
  */
 
-public class LivreAudio extends Son implements Audio
+public class LivreAudio extends Son
 {
     private String auteur;
     private String contenu; // (fichier audio)
@@ -89,17 +89,4 @@ public class LivreAudio extends Son implements Audio
     	return this.categorie;
     }
 
-/**
-*   Méthode de lecture d'un album associée à l'interface Audio
-*/
-    public void play(){
-        System.out.println ("Vous écoutez en ce moment le livre: " +titre);
-    }
-    
-/**
-*   Méthode pour stopper la lecture d'un album associée à l'interface Audio
-*/
-    public void stop(){
-        System.out.println ("Vous venez de stopper l'écoute !");
-    }
 }
