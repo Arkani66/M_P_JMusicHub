@@ -234,6 +234,7 @@ public class MusicHub implements socketServer, Audio
      */
     public void playSound(OutputStream output, InputStream input) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream
+        afftitre_genre(output,input);
         System.out.println("Play music by enter the title:");
         writeTo(output,"Play music by enter the title:");
         writeTo(output,"OK");
