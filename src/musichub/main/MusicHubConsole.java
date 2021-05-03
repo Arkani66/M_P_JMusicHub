@@ -39,7 +39,6 @@ import java.util.Scanner;
             String question = "null";
             String reponseC= "null";
             clearScreen();
-            System.out.println("Toutes les recuperations sont finis");
             while( question.compareTo("quitter") != 0)
             {
                 String line;
