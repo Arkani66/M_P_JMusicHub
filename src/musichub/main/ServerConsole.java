@@ -225,18 +225,4 @@ public class ServerConsole implements socketServer {
         return textread;
     }
 
-    @Override
-    public void closeOutput() {
-
-    }
-
-    @Override
-    public void closeInput() {
-
-    }
-
-    @Override
-    public void closeSocket() {
-
-    }
 }

@@ -36,9 +36,4 @@ public interface socketServer {
      */
     public String readFrom(InputStream input);
 
-    public void closeOutput(); //unused
-
-    public void closeInput();   //unused
-
-    public void closeSocket();  //unused
 }

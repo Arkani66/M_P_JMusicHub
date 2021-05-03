@@ -71,7 +71,6 @@ public class Server implements socketServer {
         return response;
     }
 
-    @Override
     public void closeOutput() {
         try {
             this.output.close();
@@ -80,7 +79,6 @@ public class Server implements socketServer {
         }
     }
 
-    @Override
     public void closeInput() {
         try {
             this.input.close();
@@ -89,7 +87,6 @@ public class Server implements socketServer {
         }
     }
 
-    @Override
     public void closeSocket() {
         try {
             this.socket.close();
