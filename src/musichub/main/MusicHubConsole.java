@@ -1,8 +1,12 @@
 package musichub.main;
 
+import javax.sound.sampled.*;
+import java.io.*;
 import musichub.business.*;
 import musichub.util.*;
 import java.util.Scanner;
+
+
 
 /**
  * Cette classe effectue toutes les actions disponibles sur la console du MusicHub
@@ -34,7 +38,7 @@ import java.util.Scanner;
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    public MusicHubConsole()
+    public MusicHubConsole() throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
         Client client = new Client();
         System.out.println(ANSI_WHITE_BACKGROUND+ANSI_BLUE+"\n\n\t\tBienvenue sur le jMusicHub\n"+ANSI_RESET);
@@ -46,7 +50,7 @@ import java.util.Scanner;
             System.out.println("\nRécupération Albums");
             hub.recupAlbums();
             System.out.println("\nRécupération Eléments");
-            hub.recupElements();
+            hub.recupElement();
 
 
         }
@@ -77,6 +81,7 @@ import java.util.Scanner;
             System.out.println("\t\t"+ANSI_WHITE_BACKGROUND+ANSI_BLUE+" ---------------MENU------------------- "+ANSI_RESET);
             System.out.println("\t\t"+ANSI_WHITE_BACKGROUND+ANSI_BLUE+"                                        "+ANSI_RESET);
             System.out.println(ANSI_GREEN+"Si vous voulez : .... =>tappez ...");
+            System.out.println("Ecouter une chanson                                                     => e ");
             System.out.println("Rajout d'une nouvelle chanson                                           => c ");
             System.out.println("Rajout d'un nouvel album                                                => a ");
             System.out.println("Rajout d'une chanson existante à un album                               => + ");
@@ -93,6 +98,11 @@ import java.util.Scanner;
                         
             switch(reponse)
             {
+                case "e":
+                System.out.println(ANSI_PURPLE+"Vous avez choisi => Ecouter une chanson "+ANSI_RESET);
+                hub.playSound();
+                break;
+
                 case "c":
                     System.out.println(ANSI_PURPLE+"Vous avez choisi => Rajout d'une nouvelle chanson "+ANSI_RESET);
                     hub.ajoutChansons();
@@ -154,7 +164,7 @@ import java.util.Scanner;
         
     }
     
-    public static void main( String[] args)
+    public static void main( String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
         new MusicHubConsole();
     }
