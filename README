@@ -1,0 +1,26 @@
+
+
+Bienvenue sur le README de notre projet de MusicHub !
+
+Sur cette branche se trouve la version LINUX du projet 
+
+README:
+@authors CHIDIAC Bryan, LEOPOLD Arnaud, MICONNET Sandrine et PROSPA Florence
+
+Deux versions sensiblement identiques du programmes sont disponibles, selon l'environnement sous lequel vous allez exécuter le programme :
+
+	 - Pour compiler le programme (sur Linux), aller dans le dossier "Projet poo LINUX" et effectuez les commandes préparatoires suivantes :
+	compile.bat
+	runServer.bat
+
+	---> Cela permet de s'assurer que les fichiers sont bien des executables.
+	Par la suite vous pourrez compiler à l'aide des commandes suivantes dans 2 terminaux différents:
+	runServer.bat
+	runClient.bat
+
+/!\/!\  ATTENTION /!\/!\
+Veillez à bien lancer le ./runServer.sh en premier sinon le programmene se lancera pas correctement
+La version LINUX contient des accents et des couleurs à l'affichage sur le terminal, contrairement à la version de WINDOWS comme l'environnement de base du projet est LINUX.
+
+Pour compiler avec Maven : $ mvn compile
+Pour compiler et lancer les tests unitaires: $mvn verify
